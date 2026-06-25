@@ -1,0 +1,205 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title="Services — focused" description="Everything focused does — transcription, summaries, action items, and more." />
+	</head>
+	<body>
+		<Header />
+		<main>
+			<header class="page-header">
+				<h1>Services</h1>
+				<p class="subtitle">Everything focused does, from the moment a conversation starts to the moment you act on it.</p>
+			</header>
+
+			<section class="service-list">
+				<div class="service">
+					<div class="service-header">
+						<h2>Live transcription</h2>
+						<span class="badge">Core</span>
+					</div>
+					<p>
+						focused joins your meetings and calls silently and transcribes in real time. It handles
+						multiple speakers, accents, and technical vocabulary — and never requires you to record
+						or upload a file after the fact.
+					</p>
+					<ul>
+						<li>Supports Zoom, Google Meet, Microsoft Teams, and in-person via microphone</li>
+						<li>Speaker identification and labeling</li>
+						<li>Timestamps throughout the transcript</li>
+						<li>Exports to plain text, Markdown, or PDF</li>
+					</ul>
+				</div>
+
+				<div class="service">
+					<div class="service-header">
+						<h2>Smart summaries</h2>
+						<span class="badge">Core</span>
+					</div>
+					<p>
+						When a session ends, focused generates a structured summary that captures what was decided,
+						what was discussed, and what matters — without padding. Summaries are ready within seconds
+						of the meeting ending.
+					</p>
+					<ul>
+						<li>Decisions and outcomes highlighted separately from discussion</li>
+						<li>Configurable length — brief or detailed</li>
+						<li>Context-aware: focused learns your recurring meeting types over time</li>
+						<li>Shareable via link or email</li>
+					</ul>
+				</div>
+
+				<div class="service">
+					<div class="service-header">
+						<h2>Action item extraction</h2>
+						<span class="badge">Core</span>
+					</div>
+					<p>
+						focused identifies tasks, owners, and deadlines mentioned in conversation and surfaces them as
+						a clean action item list. No more digging through a transcript to find who said they'd do what.
+					</p>
+					<ul>
+						<li>Automatic task detection from natural language</li>
+						<li>Owner and due date attribution when mentioned</li>
+						<li>One-click export to Notion, Linear, or Asana (coming soon)</li>
+					</ul>
+				</div>
+
+				<div class="service">
+					<div class="service-header">
+						<h2>Searchable archive</h2>
+						<span class="badge">Core</span>
+					</div>
+					<p>
+						Every transcript and summary is stored, indexed, and fully searchable. Find a specific quote,
+						decision, or topic from any meeting — whether it happened yesterday or six months ago.
+					</p>
+					<ul>
+						<li>Full-text search across all notes</li>
+						<li>Filter by date, participant, or meeting type</li>
+						<li>Linked context: related meetings surface automatically</li>
+					</ul>
+				</div>
+
+				<div class="service">
+					<div class="service-header">
+						<h2>Voice notes</h2>
+						<span class="badge">Coming soon</span>
+					</div>
+					<p>
+						Capture thoughts on the go with focused's voice note feature. Record a quick idea, debrief
+						after a call, or dictate a follow-up — and get a transcript and summary automatically.
+					</p>
+					<ul>
+						<li>Available on iOS and Android</li>
+						<li>Same transcription and summary quality as meetings</li>
+						<li>Syncs to your archive instantly</li>
+					</ul>
+				</div>
+			</section>
+
+			<section class="cta-section">
+				<h2>Want to try it?</h2>
+				<p>focused is currently in early access. Get in touch to join the waitlist.</p>
+				<a href="/contact" class="btn">Get early access</a>
+			</section>
+		</main>
+		<Footer />
+	</body>
+</html>
+
+<style>
+	main {
+		max-width: 760px;
+		margin: 0 auto;
+		padding: 2rem 1.5rem 4rem;
+	}
+	.page-header {
+		margin-bottom: 3rem;
+		padding-bottom: 1.5rem;
+		border-bottom: 1px solid rgba(var(--gray-light), 1);
+	}
+	.page-header h1 {
+		margin: 0 0 0.5rem;
+	}
+	.subtitle {
+		margin: 0;
+		font-size: 1.1rem;
+		color: rgb(var(--gray-dark));
+	}
+	.service-list {
+		display: flex;
+		flex-direction: column;
+		gap: 3rem;
+	}
+	.service {
+		padding-bottom: 3rem;
+		border-bottom: 1px solid rgba(var(--gray-light), 1);
+	}
+	.service:last-child {
+		border-bottom: none;
+	}
+	.service-header {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		margin-bottom: 0.75rem;
+	}
+	.service-header h2 {
+		margin: 0;
+		font-size: 1.3rem;
+	}
+	.badge {
+		font-size: 0.7rem;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		padding: 0.2rem 0.6rem;
+		border-radius: 100px;
+		background: rgba(var(--gray-light), 1);
+		color: rgb(var(--gray-dark));
+	}
+	.service p {
+		color: rgb(var(--gray-dark));
+		line-height: 1.7;
+		margin-bottom: 1rem;
+	}
+	.service ul {
+		margin: 0;
+		padding-left: 1.25rem;
+		color: rgb(var(--gray-dark));
+		line-height: 1.8;
+	}
+	.cta-section {
+		margin-top: 4rem;
+		padding: 2.5rem;
+		background: rgba(var(--gray-light), 0.3);
+		border-radius: 8px;
+		text-align: center;
+	}
+	.cta-section h2 {
+		margin-top: 0;
+	}
+	.cta-section p {
+		color: rgb(var(--gray-dark));
+		margin-bottom: 1.5rem;
+	}
+	.btn {
+		display: inline-block;
+		padding: 0.75rem 1.75rem;
+		border-radius: 6px;
+		font-weight: 600;
+		text-decoration: none;
+		background: var(--accent);
+		color: white;
+		transition: opacity 0.15s;
+	}
+	.btn:hover {
+		opacity: 0.85;
+	}
+</style>

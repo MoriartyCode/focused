@@ -1,0 +1,246 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title="Contact — focused" description="Get in touch with the focused team or join our early access waitlist." />
+	</head>
+	<body>
+		<Header />
+		<main>
+			<header class="page-header">
+				<h1>Get in touch</h1>
+				<p class="subtitle">We're a small team and we read every message.</p>
+			</header>
+
+			<div class="contact-layout">
+				<section class="contact-form-section">
+					<h2>Send us a message</h2>
+					<form class="contact-form" action="#" method="post">
+						<div class="field">
+							<label for="name">Name</label>
+							<input type="text" id="name" name="name" placeholder="Your name" required />
+						</div>
+						<div class="field">
+							<label for="email">Email</label>
+							<input type="email" id="email" name="email" placeholder="you@example.com" required />
+						</div>
+						<div class="field">
+							<label for="subject">Subject</label>
+							<select id="subject" name="subject">
+								<option value="early-access">Early access request</option>
+								<option value="general">General enquiry</option>
+								<option value="press">Press / media</option>
+								<option value="partnership">Partnership</option>
+							</select>
+						</div>
+						<div class="field">
+							<label for="message">Message</label>
+							<textarea id="message" name="message" rows="5" placeholder="Tell us a bit about yourself and how you'd use focused."></textarea>
+						</div>
+						<button type="submit" class="btn">Send message</button>
+					</form>
+				</section>
+
+				<aside class="contact-info">
+					<h2>Other ways to reach us</h2>
+					<dl>
+						<dt>Email</dt>
+						<dd><a href="mailto:hello@focused.app">hello@focused.app</a></dd>
+
+						<dt>Early access</dt>
+						<dd>Use the form to join our waitlist. We'll be in touch when spots open up.</dd>
+
+						<dt>Response time</dt>
+						<dd>We aim to respond within one business day.</dd>
+					</dl>
+
+					<div class="divider"></div>
+
+					<h3>Frequently asked</h3>
+					<div class="faq">
+						<details>
+							<summary>Is focused free to try?</summary>
+							<p>Early access users get full access at no cost while we're in beta. Pricing will be announced before we launch publicly.</p>
+						</details>
+						<details>
+							<summary>Which meeting platforms do you support?</summary>
+							<p>Currently Zoom, Google Meet, and Microsoft Teams. In-person transcription via microphone is also supported.</p>
+						</details>
+						<details>
+							<summary>How is my data handled?</summary>
+							<p>Transcripts and summaries are encrypted at rest and in transit. We never sell or share your data. You can delete everything at any time.</p>
+						</details>
+					</div>
+				</aside>
+			</div>
+		</main>
+		<Footer />
+	</body>
+</html>
+
+<style>
+	main {
+		max-width: 960px;
+		margin: 0 auto;
+		padding: 2rem 1.5rem 4rem;
+	}
+	.page-header {
+		margin-bottom: 3rem;
+		padding-bottom: 1.5rem;
+		border-bottom: 1px solid rgba(var(--gray-light), 1);
+	}
+	.page-header h1 {
+		margin: 0 0 0.5rem;
+	}
+	.subtitle {
+		margin: 0;
+		font-size: 1.1rem;
+		color: rgb(var(--gray-dark));
+	}
+	.contact-layout {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 4rem;
+		align-items: start;
+	}
+	@media (max-width: 720px) {
+		.contact-layout {
+			grid-template-columns: 1fr;
+			gap: 2.5rem;
+		}
+	}
+
+	/* Form */
+	.contact-form-section h2,
+	.contact-info h2 {
+		margin-top: 0;
+		font-size: 1.1rem;
+	}
+	.contact-form {
+		display: flex;
+		flex-direction: column;
+		gap: 1.25rem;
+	}
+	.field {
+		display: flex;
+		flex-direction: column;
+		gap: 0.4rem;
+	}
+	label {
+		font-size: 0.9rem;
+		font-weight: 600;
+		color: rgb(var(--black));
+	}
+	input,
+	select,
+	textarea {
+		padding: 0.6rem 0.75rem;
+		border: 1px solid rgba(var(--gray-light), 1);
+		border-radius: 6px;
+		font-size: 1rem;
+		font-family: inherit;
+		color: rgb(var(--black));
+		background: white;
+		width: 100%;
+		box-sizing: border-box;
+	}
+	input:focus,
+	select:focus,
+	textarea:focus {
+		outline: 2px solid var(--accent);
+		outline-offset: 1px;
+		border-color: transparent;
+	}
+	textarea {
+		resize: vertical;
+	}
+	.btn {
+		display: inline-block;
+		padding: 0.75rem 1.75rem;
+		border-radius: 6px;
+		font-weight: 600;
+		font-size: 1rem;
+		font-family: inherit;
+		cursor: pointer;
+		border: none;
+		background: var(--accent);
+		color: white;
+		transition: opacity 0.15s;
+		align-self: flex-start;
+	}
+	.btn:hover {
+		opacity: 0.85;
+	}
+
+	/* Info aside */
+	dl {
+		margin: 0 0 1.5rem;
+	}
+	dt {
+		font-weight: 600;
+		font-size: 0.9rem;
+		color: rgb(var(--black));
+		margin-top: 1rem;
+	}
+	dt:first-child {
+		margin-top: 0;
+	}
+	dd {
+		margin: 0.25rem 0 0;
+		color: rgb(var(--gray-dark));
+		line-height: 1.6;
+	}
+	dd a {
+		color: var(--accent);
+		text-decoration: none;
+	}
+	dd a:hover {
+		text-decoration: underline;
+	}
+	.divider {
+		border-top: 1px solid rgba(var(--gray-light), 1);
+		margin: 1.5rem 0;
+	}
+	.contact-info h3 {
+		margin: 0 0 1rem;
+		font-size: 1rem;
+	}
+	.faq {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+	details {
+		border: 1px solid rgba(var(--gray-light), 1);
+		border-radius: 6px;
+		padding: 0.75rem 1rem;
+	}
+	details[open] {
+		padding-bottom: 1rem;
+	}
+	summary {
+		font-weight: 600;
+		font-size: 0.9rem;
+		cursor: pointer;
+		color: rgb(var(--black));
+		list-style: none;
+	}
+	summary::before {
+		content: '+ ';
+		color: var(--accent);
+	}
+	details[open] summary::before {
+		content: '− ';
+	}
+	details p {
+		margin: 0.75rem 0 0;
+		font-size: 0.9rem;
+		color: rgb(var(--gray-dark));
+		line-height: 1.6;
+	}
+</style>

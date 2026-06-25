@@ -1,63 +1,115 @@
 ---
-import AboutHeroImage from '../assets/blog-placeholder-about.jpg';
-import Layout from '../layouts/BlogPost.astro';
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
 ---
 
-<Layout
-	title="About Me"
-	description="Lorem ipsum dolor sit amet"
-	pubDate={new Date('August 08 2021')}
-	heroImage={AboutHeroImage}
->
-	<p>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-		labore et dolore magna aliqua. Vitae ultricies leo integer malesuada nunc vel risus commodo
-		viverra. Adipiscing enim eu turpis egestas pretium. Euismod elementum nisi quis eleifend quam
-		adipiscing. In hac habitasse platea dictumst vestibulum. Sagittis purus sit amet volutpat. Netus
-		et malesuada fames ac turpis egestas. Eget magna fermentum iaculis eu non diam phasellus
-		vestibulum lorem. Varius sit amet mattis vulputate enim. Habitasse platea dictumst quisque
-		sagittis. Integer quis auctor elit sed vulputate mi. Dictumst quisque sagittis purus sit amet.
-	</p>
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title="About — focused" description="The story behind focused, an AI note taker built for people who think while they talk." />
+	</head>
+	<body>
+		<Header />
+		<main>
+			<article class="about">
+				<header class="page-header">
+					<h1>About focused</h1>
+					<p class="subtitle">Built for people who think while they talk.</p>
+				</header>
 
-	<p>
-		Morbi tristique senectus et netus. Id semper risus in hendrerit gravida rutrum quisque non
-		tellus. Habitasse platea dictumst quisque sagittis purus sit amet. Tellus molestie nunc non
-		blandit massa. Cursus vitae congue mauris rhoncus. Accumsan tortor posuere ac ut. Fringilla urna
-		porttitor rhoncus dolor. Elit ullamcorper dignissim cras tincidunt lobortis. In cursus turpis
-		massa tincidunt dui ut ornare lectus. Integer feugiat scelerisque varius morbi enim nunc.
-		Bibendum neque egestas congue quisque egestas diam. Cras ornare arcu dui vivamus arcu felis
-		bibendum. Dignissim suspendisse in est ante in nibh mauris. Sed tempus urna et pharetra pharetra
-		massa massa ultricies mi.
-	</p>
+				<section class="prose">
+					<h2>The problem we kept running into</h2>
+					<p>
+						It started in a product meeting. Someone said something important — a real insight — and by the
+						time the meeting ended, nobody could quite remember how it was phrased. The notes captured the
+						decision but lost the reasoning. The recording was there, but nobody had time to scrub through
+						forty minutes of audio.
+					</p>
+					<p>
+						That's the gap focused was built to close. Not just transcription, but comprehension. Not just
+						a record, but a useful one.
+					</p>
 
-	<p>
-		Mollis nunc sed id semper risus in. Convallis a cras semper auctor neque. Diam sit amet nisl
-		suscipit. Lacus viverra vitae congue eu consequat ac felis donec. Egestas integer eget aliquet
-		nibh praesent tristique magna sit amet. Eget magna fermentum iaculis eu non diam. In vitae
-		turpis massa sed elementum. Tristique et egestas quis ipsum suspendisse ultrices. Eget lorem
-		dolor sed viverra ipsum. Vel turpis nunc eget lorem dolor sed viverra. Posuere ac ut consequat
-		semper viverra nam. Laoreet suspendisse interdum consectetur libero id faucibus. Diam phasellus
-		vestibulum lorem sed risus ultricies tristique. Rhoncus dolor purus non enim praesent elementum
-		facilisis. Ultrices tincidunt arcu non sodales neque. Tempus egestas sed sed risus pretium quam
-		vulputate. Viverra suspendisse potenti nullam ac tortor vitae purus faucibus ornare. Fringilla
-		urna porttitor rhoncus dolor purus non. Amet dictum sit amet justo donec enim.
-	</p>
+					<h2>What we believe</h2>
+					<p>
+						Note-taking is a tax on thinking. Every moment you spend writing is a moment you're not
+						listening. And when you're not fully listening, you miss the nuance — the hesitation before an
+						answer, the offhand comment that turns out to be the real issue, the idea that gets dropped
+						because everyone moved on too quickly.
+					</p>
+					<p>
+						We believe the best tools disappear into the background. focused is designed to be invisible
+						during the conversation and indispensable after it.
+					</p>
 
-	<p>
-		Mattis ullamcorper velit sed ullamcorper morbi tincidunt. Tortor posuere ac ut consequat semper
-		viverra. Tellus mauris a diam maecenas sed enim ut sem viverra. Venenatis urna cursus eget nunc
-		scelerisque viverra mauris in. Arcu ac tortor dignissim convallis aenean et tortor at. Curabitur
-		gravida arcu ac tortor dignissim convallis aenean et tortor. Egestas tellus rutrum tellus
-		pellentesque eu. Fusce ut placerat orci nulla pellentesque dignissim enim sit amet. Ut enim
-		blandit volutpat maecenas volutpat blandit aliquam etiam. Id donec ultrices tincidunt arcu. Id
-		cursus metus aliquam eleifend mi.
-	</p>
+					<h2>Who we're building for</h2>
+					<p>
+						focused is for anyone whose work lives in conversation — founders running standups, consultants
+						on client calls, researchers conducting interviews, managers in one-on-ones. People for whom
+						the meeting is the work, not a distraction from it.
+					</p>
+					<p>
+						Our early users told us the same thing over and over: they wanted to show up to meetings
+						differently. Less anxious about capturing everything. More present. More useful to the people
+						in the room with them.
+					</p>
 
-	<p>
-		Tempus quam pellentesque nec nam aliquam sem. Risus at ultrices mi tempus imperdiet. Id porta
-		nibh venenatis cras sed felis eget velit. Ipsum a arcu cursus vitae. Facilisis magna etiam
-		tempor orci eu lobortis elementum. Tincidunt dui ut ornare lectus sit. Quisque non tellus orci
-		ac. Blandit libero volutpat sed cras. Nec tincidunt praesent semper feugiat nibh sed pulvinar
-		proin gravida. Egestas integer eget aliquet nibh praesent tristique magna.
-	</p>
-</Layout>
+					<h2>Where we are now</h2>
+					<p>
+						focused is in early access. We're a small team working closely with a handful of users to make
+						the product as useful as possible before we open it up more broadly. If that sounds like
+						something you want in on, we'd love to hear from you.
+					</p>
+
+					<div class="cta-inline">
+						<a href="/contact">Get in touch &rarr;</a>
+					</div>
+				</section>
+			</article>
+		</main>
+		<Footer />
+	</body>
+</html>
+
+<style>
+	main {
+		width: 100%;
+		max-width: 720px;
+		margin: 0 auto;
+		padding: 2rem 1.5rem 4rem;
+	}
+	.page-header {
+		margin-bottom: 2.5rem;
+		padding-bottom: 1.5rem;
+		border-bottom: 1px solid rgba(var(--gray-light), 1);
+	}
+	.page-header h1 {
+		margin: 0 0 0.5rem;
+	}
+	.subtitle {
+		margin: 0;
+		font-size: 1.1rem;
+		color: rgb(var(--gray-dark));
+	}
+	.prose h2 {
+		margin-top: 2.5rem;
+		margin-bottom: 0.75rem;
+	}
+	.prose p {
+		line-height: 1.75;
+		color: rgb(var(--gray-dark));
+		margin-bottom: 1.25rem;
+	}
+	.cta-inline {
+		margin-top: 2.5rem;
+	}
+	.cta-inline a {
+		color: var(--accent);
+		font-weight: 600;
+		text-decoration: none;
+	}
+	.cta-inline a:hover {
+		text-decoration: underline;
+	}
+</style>

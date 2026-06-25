@@ -13,37 +13,226 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 	<body>
 		<Header />
 		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This template
-				serves as a lightweight, minimally-styled starting point for anyone looking to build a personal
-				website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to
-				<a href="https://docs.astro.build/">read the docs</a>
-				or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out
-				<a href="https://github.com/Charca/astro-blog-template">astro-blog-template</a>
-				by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
+			<!-- Hero -->
+			<section class="hero">
+				<div class="hero-content">
+					<h1>Never miss a moment.</h1>
+					<p class="tagline">
+						focused captures everything said in your meetings, calls, and voice notes — then turns it into
+						clear summaries, action items, and searchable records. So you can stay present.
+					</p>
+					<div class="hero-actions">
+						<a href="/contact" class="btn btn-primary">Get early access</a>
+						<a href="/services" class="btn btn-secondary">See what it does</a>
+					</div>
+				</div>
+			</section>
+
+			<!-- Services -->
+			<section class="services">
+				<h2>What focused does</h2>
+				<div class="services-grid">
+					<div class="service-card">
+						<h3>Live transcription</h3>
+						<p>
+							Real-time, accurate transcription of meetings, calls, and voice notes. Works across Zoom,
+							Google Meet, Teams, and in-person conversations.
+						</p>
+					</div>
+					<div class="service-card">
+						<h3>Smart summaries</h3>
+						<p>
+							After every session, get a concise summary that captures decisions made, topics discussed,
+							and context — without the noise.
+						</p>
+					</div>
+					<div class="service-card">
+						<h3>Action item extraction</h3>
+						<p>
+							focused automatically identifies tasks, owners, and deadlines mentioned during a conversation
+							and surfaces them as clear action items.
+						</p>
+					</div>
+					<div class="service-card">
+						<h3>Searchable archive</h3>
+						<p>
+							Every note is indexed and searchable. Find anything said in any meeting, from any time,
+							in seconds.
+						</p>
+					</div>
+				</div>
+				<a href="/services" class="link-more">View all services &rarr;</a>
+			</section>
+
+			<!-- About teaser -->
+			<section class="about-teaser">
+				<div class="about-content">
+					<h2>Built for people who think while they talk</h2>
+					<p>
+						focused was born from a simple frustration: important ideas get lost in meetings. We built a
+						tool that listens so you don't have to — giving you the freedom to be fully present while knowing
+						every detail is captured.
+					</p>
+					<a href="/about" class="link-more">Our story &rarr;</a>
+				</div>
+			</section>
+
+			<!-- CTA -->
+			<section class="cta">
+				<h2>Ready to stop taking notes?</h2>
+				<p>Join the waitlist and be first to try focused when we launch.</p>
+				<a href="/contact" class="btn btn-primary">Get early access</a>
+			</section>
 		</main>
 		<Footer />
 	</body>
 </html>
+
+<style>
+	main {
+		width: 100%;
+		max-width: 100%;
+		padding: 0;
+		margin: 0;
+	}
+
+	/* Hero */
+	.hero {
+		padding: 5rem 1.5rem;
+		text-align: center;
+		background: linear-gradient(135deg, #f8f9ff 0%, #ffffff 100%);
+		border-bottom: 1px solid rgba(var(--gray-light), 1);
+	}
+	.hero-content {
+		max-width: 680px;
+		margin: 0 auto;
+	}
+	.hero h1 {
+		font-size: 3rem;
+		line-height: 1.1;
+		margin-bottom: 1rem;
+		color: rgb(var(--black));
+	}
+	.tagline {
+		font-size: 1.2rem;
+		color: rgb(var(--gray-dark));
+		line-height: 1.6;
+		margin-bottom: 2rem;
+	}
+	.hero-actions {
+		display: flex;
+		gap: 1rem;
+		justify-content: center;
+		flex-wrap: wrap;
+	}
+
+	/* Buttons */
+	.btn {
+		display: inline-block;
+		padding: 0.75rem 1.75rem;
+		border-radius: 6px;
+		font-weight: 600;
+		text-decoration: none;
+		transition: opacity 0.15s;
+	}
+	.btn:hover {
+		opacity: 0.85;
+	}
+	.btn-primary {
+		background: var(--accent);
+		color: white;
+	}
+	.btn-secondary {
+		border: 2px solid var(--accent);
+		color: var(--accent);
+		background: transparent;
+	}
+
+	/* Services */
+	.services {
+		padding: 4rem 1.5rem;
+		max-width: 960px;
+		margin: 0 auto;
+		text-align: center;
+	}
+	.services h2 {
+		margin-bottom: 2.5rem;
+	}
+	.services-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+		gap: 1.5rem;
+		text-align: left;
+	}
+	.service-card {
+		padding: 1.5rem;
+		border: 1px solid rgba(var(--gray-light), 1);
+		border-radius: 8px;
+		background: white;
+	}
+	.service-card h3 {
+		margin-top: 0;
+		margin-bottom: 0.5rem;
+		font-size: 1rem;
+		color: rgb(var(--black));
+	}
+	.service-card p {
+		margin: 0;
+		font-size: 0.95rem;
+		color: rgb(var(--gray-dark));
+		line-height: 1.6;
+	}
+	.link-more {
+		display: inline-block;
+		margin-top: 2rem;
+		color: var(--accent);
+		text-decoration: none;
+		font-weight: 600;
+	}
+	.link-more:hover {
+		text-decoration: underline;
+	}
+
+	/* About teaser */
+	.about-teaser {
+		background: rgba(var(--gray-light), 0.3);
+		padding: 4rem 1.5rem;
+		border-top: 1px solid rgba(var(--gray-light), 1);
+		border-bottom: 1px solid rgba(var(--gray-light), 1);
+	}
+	.about-content {
+		max-width: 640px;
+		margin: 0 auto;
+	}
+	.about-content h2 {
+		margin-top: 0;
+	}
+	.about-content p {
+		color: rgb(var(--gray-dark));
+		line-height: 1.7;
+	}
+
+	/* CTA */
+	.cta {
+		padding: 5rem 1.5rem;
+		text-align: center;
+		max-width: 600px;
+		margin: 0 auto;
+	}
+	.cta h2 {
+		margin-bottom: 0.75rem;
+	}
+	.cta p {
+		color: rgb(var(--gray-dark));
+		margin-bottom: 2rem;
+	}
+
+	@media (max-width: 720px) {
+		.hero h1 {
+			font-size: 2rem;
+		}
+		.tagline {
+			font-size: 1rem;
+		}
+	}
+</style>
