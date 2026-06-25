@@ -7,7 +7,10 @@
       "Bash(git -C /Users/antonio/Personal/focused add src/content.config.ts src/content/blog/first-post.md src/content/blog/test-post-pertama.md)",
       "Bash(git -C /Users/antonio/Personal/focused commit -m ' *)",
       "Bash(git -C /Users/antonio/Personal/focused push)",
-      "Bash(astro dev *)"
+      "Bash(astro dev *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:4321/)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:4321/blog)",
+      "Bash(curl -s http://localhost:4321/)"
     ]
   }
 }
