@@ -1,9 +1,12 @@
 ---
-import { SITE_TITLE } from '../consts';
+import { Image } from 'astro:assets';
+import logoImg from '../assets/logo.png';
 ---
 
 <nav id="navbar">
-  <a href="/" class="logo">{SITE_TITLE}<span>.</span></a>
+  <a href="/" class="logo">
+    <Image src={logoImg} alt="focused." height={100} class="logo-img" />
+  </a>
   <ul class="nav-links">
     <li><a href="/#features">features</a></li>
     <li><a href="/#how">how it works</a></li>
@@ -26,15 +29,13 @@ import { SITE_TITLE } from '../consts';
     backdrop-filter: blur(20px);
     border-bottom: 1px solid var(--border);
   }
-  .logo {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 1.5rem; font-weight: 700;
-    color: var(--white); text-decoration: none;
-    letter-spacing: -0.04em;
-    transition: color 0.3s;
+  .logo { text-decoration: none; display: flex; align-items: center; }
+  .logo-img {
+    height: 100px; width: auto;
+    filter: brightness(0) invert(1);
+    transition: filter 0.3s;
   }
-  nav.scrolled .logo { color: var(--navy); }
-  .logo span { color: var(--accent); }
+  nav.scrolled .logo-img { filter: brightness(0); }
   .nav-links {
     display: flex; gap: 2.5rem; list-style: none;
     align-items: center;
