@@ -1,7 +1,12 @@
 {
   "permissions": {
     "allow": [
-      "Bash(npx astro *)"
+      "Bash(npx astro *)",
+      "Bash(git -C /Users/antonio/Personal/focused pull)",
+      "Bash(npm run *)",
+      "Bash(git -C /Users/antonio/Personal/focused add src/content.config.ts src/content/blog/first-post.md src/content/blog/test-post-pertama.md)",
+      "Bash(git -C /Users/antonio/Personal/focused commit -m ' *)",
+      "Bash(git -C /Users/antonio/Personal/focused push)"
     ]
   }
 }
