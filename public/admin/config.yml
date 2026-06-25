@@ -1,0 +1,45 @@
+backend:
+  name: github
+  repo: MoriartyCode/focused
+  branch: main
+
+media_folder: public/uploads
+public_folder: /uploads
+
+collections:
+  - name: blog
+    label: Blog
+    folder: src/content/blog
+    slug: "{{slug}}"
+    create: true
+    delete: true
+    fields:
+      - name: title
+        label: Title
+        widget: string
+
+      - name: description
+        label: Description
+        widget: string
+
+      - name: pubDate
+        label: Publish date
+        widget: datetime
+        date_format: YYYY-MM-DD
+        time_format: false
+
+      - name: updatedDate
+        label: Updated date
+        widget: datetime
+        date_format: YYYY-MM-DD
+        time_format: false
+        required: false
+
+      - name: heroImage
+        label: Hero image
+        widget: image
+        required: false
+
+      - name: body
+        label: Body
+        widget: markdown
