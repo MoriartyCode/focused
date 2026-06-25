@@ -1,8 +1,9 @@
 ---
-title: 'Markdown Style Guide'
-description: 'Here is a sample of some basic Markdown syntax that can be used when writing Markdown content in Astro.'
-pubDate: 'Jun 19 2024'
-heroImage: '../../assets/blog-placeholder-1.jpg'
+title: Markdown Style Guide
+description: Here is a sample of some basic Markdown syntax that can be used when writing Markdown content in Astro.
+pubDate: 2026-06-25
+updatedDate: ''
+heroImage: ../../assets/blog-placeholder-1.jpg
 ---
 
 Here is a sample of some basic Markdown syntax that can be used when writing Markdown content in Astro.
@@ -87,15 +88,15 @@ The blockquote element represents content that is quoted from another source, op
 
 ### Output
 
-| Italics   | Bold     | Code   |
-| --------- | -------- | ------ |
-| _italics_ | **bold** | `code` |
+| Italics | Bold | Code |
+| --- | --- | --- |
+| *italics* | **bold** | `code` |
 
 ## Code Blocks
 
 ### Syntax
 
-we can use 3 backticks ``` in new line and write snippet and close with 3 backticks on new line and to highlight language specific syntax, write one word of language name after first 3 backticks, for eg. html, javascript, css, markdown, typescript, txt, bash
+we can use 3 backticks \`\`\` in new line and write snippet and close with 3 backticks on new line and to highlight language specific syntax, write one word of language name after first 3 backticks, for eg. html, javascript, css, markdown, typescript, txt, bash
 
 ````markdown
 ```html
@@ -167,23 +168,23 @@ we can use 3 backticks ``` in new line and write snippet and close with 3 backti
 
 ```markdown
 - Fruit
-  - Apple
-  - Orange
-  - Banana
+    - Apple
+    - Orange
+    - Banana
 - Dairy
-  - Milk
-  - Cheese
+    - Milk
+    - Cheese
 ```
 
 #### Output
 
 - Fruit
-  - Apple
-  - Orange
-  - Banana
+    - Apple
+    - Orange
+    - Banana
 - Dairy
-  - Milk
-  - Cheese
+    - Milk
+    - Cheese
 
 ## Other Elements — abbr, sub, sup, kbd, mark
 
