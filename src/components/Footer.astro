@@ -2,16 +2,78 @@
 ---
 
 <footer>
-	<p>&copy; 2026 focused. All rights reserved.</p>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-logo">focused<span>.</span></div>
+      <p class="footer-desc">A voice note taker that uses AI to summarise your thoughts — so you can stay in the moment.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">product</div>
+      <div class="footer-links">
+        <a href="/#features">features</a>
+        <a href="/#pricing">pricing</a>
+        <a href="/#how">how it works</a>
+        <a href="#">changelog</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">company</div>
+      <div class="footer-links">
+        <a href="/about">about</a>
+        <a href="/blog">blog</a>
+        <a href="/#contact">contact</a>
+        <a href="#">press</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">legal</div>
+      <div class="footer-links">
+        <a href="#">privacy policy</a>
+        <a href="#">terms of service</a>
+        <a href="#">restore purchase</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 focused. All rights reserved.</span>
+    <span>available on iOS — coming to Android</span>
+  </div>
 </footer>
+
 <style>
-	footer {
-		padding: 2em 1em;
-		background: linear-gradient(var(--gray-gradient)) no-repeat;
-		color: rgb(var(--gray));
-		text-align: center;
-	}
-	footer p {
-		margin: 0;
-	}
+  footer {
+    background: var(--navy);
+    padding: 4rem 3rem 2.5rem;
+  }
+  .footer-grid {
+    max-width: 1200px; margin: 0 auto;
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid var(--border-dark);
+    margin-bottom: 2rem;
+  }
+  .footer-logo {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.5rem; font-weight: 700;
+    color: white; letter-spacing: -0.04em; margin-bottom: 0.875rem;
+  }
+  .footer-logo span { color: var(--accent-glow); }
+  .footer-desc { font-size: 0.9rem; color: rgba(255,255,255,0.4); line-height: 1.6; max-width: 260px; margin: 0; }
+  .footer-col-title {
+    font-size: 0.8rem; font-weight: 600; color: rgba(255,255,255,0.5);
+    text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 1rem;
+  }
+  .footer-links { display: flex; flex-direction: column; gap: 0.6rem; }
+  .footer-links a { font-size: 0.9rem; color: rgba(255,255,255,0.45); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: white; }
+  .footer-bottom {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 0.8rem; color: rgba(255,255,255,0.3);
+  }
+  @media (max-width: 900px) {
+    footer { padding: 3rem 1.5rem 2rem; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
 </style>

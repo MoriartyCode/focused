@@ -1,238 +1,757 @@
 ---
 import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import Footer from '../components/Footer.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog'))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
 ---
 
 <!doctype html>
 <html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header />
-		<main>
-			<!-- Hero -->
-			<section class="hero">
-				<div class="hero-content">
-					<h1>Never miss a moment.</h1>
-					<p class="tagline">
-						focused captures everything said in your meetings, calls, and voice notes — then turns it into
-						clear summaries, action items, and searchable records. So you can stay present.
-					</p>
-					<div class="hero-actions">
-						<a href="/contact" class="btn btn-primary">Get early access</a>
-						<a href="/services" class="btn btn-secondary">See what it does</a>
-					</div>
-				</div>
-			</section>
+  <head>
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+  </head>
+  <body>
+    <div id="cursor"></div>
+    <div id="cursor-ring"></div>
 
-			<!-- Services -->
-			<section class="services">
-				<h2>What focused does</h2>
-				<div class="services-grid">
-					<div class="service-card">
-						<h3>Live transcription</h3>
-						<p>
-							Real-time, accurate transcription of meetings, calls, and voice notes. Works across Zoom,
-							Google Meet, Teams, and in-person conversations.
-						</p>
-					</div>
-					<div class="service-card">
-						<h3>Smart summaries</h3>
-						<p>
-							After every session, get a concise summary that captures decisions made, topics discussed,
-							and context — without the noise.
-						</p>
-					</div>
-					<div class="service-card">
-						<h3>Action item extraction</h3>
-						<p>
-							focused automatically identifies tasks, owners, and deadlines mentioned during a conversation
-							and surfaces them as clear action items.
-						</p>
-					</div>
-					<div class="service-card">
-						<h3>Searchable archive</h3>
-						<p>
-							Every note is indexed and searchable. Find anything said in any meeting, from any time,
-							in seconds.
-						</p>
-					</div>
-				</div>
-				<a href="/services" class="link-more">View all services &rarr;</a>
-			</section>
+    <Header />
 
-			<!-- About teaser -->
-			<section class="about-teaser">
-				<div class="about-content">
-					<h2>Built for people who think while they talk</h2>
-					<p>
-						focused was born from a simple frustration: important ideas get lost in meetings. We built a
-						tool that listens so you don't have to — giving you the freedom to be fully present while knowing
-						every detail is captured.
-					</p>
-					<a href="/about" class="link-more">Our story &rarr;</a>
-				</div>
-			</section>
+    <main>
+      <!-- ── HERO ── -->
+      <section class="hero">
+        <div class="hero-bg">
+          <div class="hero-orb orb-1"></div>
+          <div class="hero-orb orb-2"></div>
+          <div class="hero-orb orb-3"></div>
+        </div>
+        <div class="hero-grid">
+          <div class="hero-text">
+            <div class="hero-tag"><div class="hero-tag-dot"></div> AI-powered voice notes</div>
+            <h1>Your voice.<br><em>Captured.</em><br>Understood.</h1>
+            <p class="hero-sub">Record any lecture, meeting, or idea. focused. transcribes, summarises, and organises everything — so you can stay in the moment.</p>
+            <div class="hero-ctas">
+              <a href="/#pricing" class="btn btn-accent">start for free</a>
+              <a href="/#how" class="btn btn-ghost">see how it works</a>
+            </div>
+            <div class="hero-social-proof">
+              <div class="avatars">
+                <div class="avatar-fallback">JL</div>
+                <div class="avatar-fallback">AM</div>
+                <div class="avatar-fallback">SR</div>
+                <div class="avatar-fallback">PK</div>
+              </div>
+              <p class="proof-text"><strong>2,400+ students & professionals</strong> use focused. daily</p>
+            </div>
+          </div>
+          <div class="hero-device">
+            <div class="phone-frame">
+              <div class="phone-notch">
+                <div class="notch-cam"></div>
+                <div class="notch-dot"></div>
+              </div>
+              <div class="phone-screen">
+                <div class="screen-content">
+                  <div class="screen-time">9:41</div>
+                  <div class="screen-logo">focused.</div>
+                  <div class="screen-search">🔍 Search notes...</div>
+                  <div class="screen-label">All Notes</div>
+                  <div class="note-card">
+                    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px">
+                      <div class="note-title">Introduction to Space (Astronomy 101)</div>
+                    </div>
+                    <div><span class="note-badge badge-notes">Notes</span><span class="note-meta">21 Feb 2026</span></div>
+                    <div class="note-preview">Today's lecture was an introduction to the universe and how astronomers understand…</div>
+                  </div>
+                  <div class="note-card">
+                    <div class="note-title">Space Exploration & Cosmos</div>
+                    <div><span class="note-badge badge-audio">Audio ✓</span><span class="note-meta">5 Feb 2026</span></div>
+                    <div class="note-preview">The Space Race, Apollo 11, James Webb Telescope, TRAPPIST-1…</div>
+                  </div>
+                  <div class="note-card">
+                    <div class="note-title">Untitled Audio</div>
+                    <div><span class="note-badge" style="background:rgba(255,150,0,0.15);color:#FFAA44">Converting…</span><span class="note-meta">4 Feb 2026</span></div>
+                  </div>
+                  <div class="screen-record-btn">
+                    <div class="record-circle"><div class="record-dot"></div></div>
+                    <div class="record-label">tap to record</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-			<!-- CTA -->
-			<section class="cta">
-				<h2>Ready to stop taking notes?</h2>
-				<p>Join the waitlist and be first to try focused when we launch.</p>
-				<a href="/contact" class="btn btn-primary">Get early access</a>
-			</section>
-		</main>
-		<Footer />
-	</body>
+      <!-- ── LOGOS STRIP ── -->
+      <div class="logos-strip">
+        <div class="logos-label">trusted by students & professionals at</div>
+        <div class="logos-scroll">
+          <div class="logo-item">Harvard</div>
+          <div class="logo-item">Google</div>
+          <div class="logo-item">Notion</div>
+          <div class="logo-item">Stanford</div>
+          <div class="logo-item">McKinsey</div>
+          <div class="logo-item">MIT</div>
+          <div class="logo-item">Deloitte</div>
+          <div class="logo-item">Yale</div>
+          <div class="logo-item">Harvard</div>
+          <div class="logo-item">Google</div>
+          <div class="logo-item">Notion</div>
+          <div class="logo-item">Stanford</div>
+          <div class="logo-item">McKinsey</div>
+          <div class="logo-item">MIT</div>
+          <div class="logo-item">Deloitte</div>
+          <div class="logo-item">Yale</div>
+        </div>
+      </div>
+
+      <!-- ── FEATURES ── -->
+      <section id="features">
+        <div class="container">
+          <div class="features-header reveal">
+            <div class="section-tag">what focused. does</div>
+            <h2 class="section-title">Every word, nothing lost.</h2>
+            <p class="section-sub" style="margin:0 auto">Designed around the way you actually think — in meetings, lectures, and late-night ideas.</p>
+          </div>
+          <div class="features-grid">
+            <div class="feature-card featured reveal">
+              <div class="feature-content">
+                <div>
+                  <div class="feature-icon" style="background:rgba(255,255,255,0.1);">🎙️</div>
+                  <h3 class="feature-title">Real-time transcription</h3>
+                  <p class="feature-desc">Record directly in the app or import audio files up to 1 hour. Whisper AI converts speech to text with high accuracy — even in noisy rooms.</p>
+                </div>
+                <div>
+                  <div class="feature-waveform" id="waveform"></div>
+                  <div style="margin-top:1rem">
+                    <div style="height:10px;border-radius:5px;background:rgba(255,255,255,0.08);margin-bottom:8px;width:90%"></div>
+                    <div style="height:10px;border-radius:5px;background:rgba(255,255,255,0.08);margin-bottom:8px;width:75%"></div>
+                    <div style="height:10px;border-radius:5px;background:rgba(255,255,255,0.08);width:60%"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="feature-card reveal">
+              <div class="feature-icon">✨</div>
+              <h3 class="feature-title">Personalised AI summaries</h3>
+              <p class="feature-desc">Tell the AI your role and goals once. Every summary is tailored — action items for a PM, study notes for a student.</p>
+            </div>
+            <div class="feature-card reveal">
+              <div class="feature-icon">📄</div>
+              <h3 class="feature-title">Clean PDF export</h3>
+              <p class="feature-desc">Export any note as a formatted PDF. Share via email, AirDrop, WhatsApp — wherever you need it.</p>
+            </div>
+            <div class="feature-card reveal">
+              <div class="feature-icon">🎵</div>
+              <h3 class="feature-title">Audio file import</h3>
+              <p class="feature-desc">Already recorded on another device? Import MP3, WAV, AAC, or FLAC files and transcribe in minutes.</p>
+            </div>
+            <div class="feature-card reveal">
+              <div class="feature-icon">🔒</div>
+              <h3 class="feature-title">App lock & privacy</h3>
+              <p class="feature-desc">Notes are private. Add a PIN lock to the app. Your audio is never uploaded to external servers without your consent.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── HOW IT WORKS ── -->
+      <section id="how" class="how-section">
+        <div class="container">
+          <div class="how-grid">
+            <div class="reveal">
+              <div class="section-tag">how it works</div>
+              <h2 class="section-title">From voice to insight in minutes.</h2>
+              <div class="steps" id="steps">
+                <div class="step active" data-step="0">
+                  <div class="step-bar"></div>
+                  <div class="step-num">01</div>
+                  <div class="step-body">
+                    <div class="step-title">Record or import</div>
+                    <div class="step-desc">Hit record in the app, or import an existing audio file. Supports up to 1 hour of audio.</div>
+                  </div>
+                </div>
+                <div class="step" data-step="1">
+                  <div class="step-bar"></div>
+                  <div class="step-num">02</div>
+                  <div class="step-body">
+                    <div class="step-title">AI transcribes & summarises</div>
+                    <div class="step-desc">Whisper transcription runs, then your personalised AI generates a structured summary based on your role and goals.</div>
+                  </div>
+                </div>
+                <div class="step" data-step="2">
+                  <div class="step-bar"></div>
+                  <div class="step-num">03</div>
+                  <div class="step-body">
+                    <div class="step-title">Read, edit & export</div>
+                    <div class="step-desc">Review the note, make edits, and export as PDF or share directly — ready to use however you need.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="how-visual reveal">
+              <div class="how-screens">
+                <div class="how-screen active" id="screen-0">
+                  <div class="mock-card">
+                    <div class="mock-title" style="margin-bottom:1.25rem">Recording...</div>
+                    <div class="mock-rec">
+                      <div class="mock-timer">00:42</div>
+                      <div class="mock-wave" id="how-wave"></div>
+                      <div class="mock-btn"><div style="width:16px;height:16px;background:white;border-radius:3px"></div></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="how-screen" id="screen-1">
+                  <div class="mock-card">
+                    <div class="mock-ai-chip"><div class="ai-dot"></div> AI processing</div>
+                    <div class="mock-title">Summary generating…</div>
+                    <div class="mock-summary-line" style="width:95%"></div>
+                    <div class="mock-summary-line" style="width:80%"></div>
+                    <div class="mock-summary-line" style="width:88%"></div>
+                    <div class="mock-summary-line" style="width:65%"></div>
+                    <div class="mock-summary-line" style="width:90%"></div>
+                  </div>
+                </div>
+                <div class="how-screen" id="screen-2">
+                  <div class="mock-card">
+                    <div class="mock-title" style="margin-bottom:0.75rem">Introduction to Space (Astronomy 101)</div>
+                    <div class="mock-text">Today's lecture covered the Big Bang theory, galactic structure, light-year distances, stellar evolution, and dark matter — all key pillars of modern astrophysics.</div>
+                    <div class="mock-export-btns">
+                      <div class="mock-export-btn">📄 PDF</div>
+                      <div class="mock-export-btn">📤 Share</div>
+                      <div class="mock-export-btn">✉️ Email</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── PRICING ── -->
+      <section id="pricing">
+        <div class="container">
+          <div class="pricing-header reveal">
+            <div class="section-tag">pricing</div>
+            <h2 class="section-title">Simple, honest pricing.</h2>
+            <p class="section-sub" style="margin:0 auto">Start free. Upgrade when you need more time and power.</p>
+          </div>
+          <div class="toggle-wrap reveal">
+            <span class="toggle-label active" id="toggle-monthly">monthly</span>
+            <button class="toggle" id="billing-toggle" aria-label="Toggle billing period"></button>
+            <span class="toggle-label" id="toggle-annual">annual</span>
+            <span class="save-badge">save 20%</span>
+          </div>
+          <div class="pricing-cards reveal">
+            <div class="pricing-card">
+              <div class="plan-name">free</div>
+              <div class="plan-price">
+                <span class="price-amount">$0</span>
+                <span class="price-period">/mo</span>
+              </div>
+              <div class="price-note">forever free, no card needed</div>
+              <ul class="plan-features">
+                <li><div class="check"></div>10 min recording limit per session</li>
+                <li><div class="check"></div>Basic transcription</li>
+                <li><div class="check"></div>5 notes storage</li>
+                <li><div class="check"></div>Ads between sessions</li>
+              </ul>
+              <button class="plan-cta">start for free</button>
+            </div>
+            <div class="pricing-card featured">
+              <div class="popular-badge">most popular</div>
+              <div class="plan-name">pro</div>
+              <div class="plan-price">
+                <span class="price-amount" id="price-display">$9.99</span>
+                <span class="price-period">/mo</span>
+              </div>
+              <div class="price-note" id="price-sub">billed every month</div>
+              <ul class="plan-features">
+                <li><div class="check"></div>100 hrs of recording / month</li>
+                <li><div class="check"></div>AI summary for every session</li>
+                <li><div class="check"></div>Personalised summaries</li>
+                <li><div class="check"></div>Clean PDF export, no watermark</li>
+                <li><div class="check"></div>No ads, anywhere</li>
+                <li><div class="check"></div>Priority support</li>
+              </ul>
+              <button class="plan-cta">get pro</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── BLOG ── -->
+      <section id="blog" class="blog-section">
+        <div class="container">
+          <div class="blog-header reveal">
+            <div>
+              <div class="section-tag">from the blog</div>
+              <h2 class="section-title" style="margin-bottom:0">Think better, capture more.</h2>
+            </div>
+            <a href="/blog" class="btn btn-ghost-dark">all posts →</a>
+          </div>
+          <div class="blog-grid">
+            {posts.length > 0 ? posts.map((post, i) => (
+              <a class={`blog-card reveal${i === 0 ? ' featured' : ''}`} href={`/blog/${post.slug}/`}>
+                <div class="blog-img">
+                  <div class="blog-illustration">
+                    <svg width="100%" height="100%" viewBox="0 0 500 280" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <rect width="500" height="280" fill="#0E1D45"/>
+                      <circle cx="250" cy="140" r="80" fill="none" stroke="#4B6EF5" stroke-width="1" stroke-dasharray="4 4" opacity="0.4"/>
+                      <circle cx="250" cy="140" r="50" fill="none" stroke="#6B8EFF" stroke-width="1" opacity="0.3"/>
+                      <circle cx="250" cy="140" r="20" fill="#4B6EF5" opacity="0.6"/>
+                      <g opacity="0.7">
+                        <rect x="80" y="120" width="3" height="40" rx="2" fill="#4B6EF5"/>
+                        <rect x="90" y="110" width="3" height="60" rx="2" fill="#4B6EF5"/>
+                        <rect x="100" y="125" width="3" height="30" rx="2" fill="#4B6EF5"/>
+                        <rect x="110" y="105" width="3" height="70" rx="2" fill="#6B8EFF"/>
+                        <rect x="120" y="115" width="3" height="50" rx="2" fill="#4B6EF5"/>
+                        <rect x="130" y="130" width="3" height="20" rx="2" fill="#4B6EF5"/>
+                      </g>
+                    </svg>
+                  </div>
+                  <div class="blog-img-overlay"><span class="blog-category">blog</span></div>
+                </div>
+                <div class="blog-body">
+                  <h3 class="blog-title">{post.data.title}</h3>
+                  <p class="blog-excerpt">{post.data.description}</p>
+                  <div class="blog-meta">
+                    <span>{post.data.pubDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}</span>
+                  </div>
+                </div>
+              </a>
+            )) : (
+              <p style="color:var(--text-muted);grid-column:1/-1">No posts yet.</p>
+            )}
+          </div>
+        </div>
+      </section>
+
+      <!-- ── CTA BAND ── -->
+      <div class="cta-band">
+        <div class="hero-orb orb-1" style="width:400px;height:400px;background:#2040C0"></div>
+        <div class="hero-orb orb-2" style="width:300px;height:300px"></div>
+        <div class="reveal" style="position:relative;z-index:1">
+          <h2>Your work deserves<br>to be captured fully.</h2>
+          <p>Every meeting, call, and idea. Transcribed, summarised, and ready to use.</p>
+          <div class="cta-band-btns">
+            <a href="/#pricing" class="btn btn-accent">start for free</a>
+            <a href="/#contact" class="btn btn-ghost">get in touch</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── CONTACT ── -->
+      <section id="contact">
+        <div class="container">
+          <div class="contact-grid">
+            <div class="reveal">
+              <div class="section-tag">contact</div>
+              <h2 class="section-title">Let's talk.</h2>
+              <p>Have a question, partnership idea, or feedback? We read every message and respond within a business day.</p>
+              <div class="contact-links">
+                <a href="mailto:hello@focused.app" class="contact-link">
+                  <div class="contact-icon">📧</div> hello@focused.app
+                </a>
+                <a href="https://twitter.com" class="contact-link">
+                  <div class="contact-icon">𝕏</div> @focusedapp
+                </a>
+                <a href="https://instagram.com" class="contact-link">
+                  <div class="contact-icon">📷</div> @focused.app
+                </a>
+              </div>
+            </div>
+            <div class="reveal">
+              <div class="form-group">
+                <label class="form-label" for="f-name">name</label>
+                <input class="form-input" id="f-name" type="text" placeholder="your name" />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="f-email">email</label>
+                <input class="form-input" id="f-email" type="email" placeholder="you@email.com" />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="f-msg">message</label>
+                <textarea class="form-textarea" id="f-msg" placeholder="tell us what's on your mind…"></textarea>
+              </div>
+              <button class="form-submit" id="contact-submit">send message →</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <Footer />
+  </body>
 </html>
 
 <style>
-	main {
-		width: 100%;
-		max-width: 100%;
-		padding: 0;
-		margin: 0;
-	}
+  /* ── CURSOR ── */
+  #cursor { position: fixed; width: 20px; height: 20px; border-radius: 50%; background: var(--accent); pointer-events: none; z-index: 9999; mix-blend-mode: multiply; transition: transform 0.15s, opacity 0.3s; transform: translate(-50%, -50%); }
+  #cursor-ring { position: fixed; width: 40px; height: 40px; border-radius: 50%; border: 1.5px solid var(--accent); pointer-events: none; z-index: 9998; transform: translate(-50%, -50%); transition: all 0.1s; opacity: 0.5; }
 
-	/* Hero */
-	.hero {
-		padding: 5rem 1.5rem;
-		text-align: center;
-		background: linear-gradient(135deg, #f8f9ff 0%, #ffffff 100%);
-		border-bottom: 1px solid rgba(var(--gray-light), 1);
-	}
-	.hero-content {
-		max-width: 680px;
-		margin: 0 auto;
-	}
-	.hero h1 {
-		font-size: 3rem;
-		line-height: 1.1;
-		margin-bottom: 1rem;
-		color: rgb(var(--black));
-	}
-	.tagline {
-		font-size: 1.2rem;
-		color: rgb(var(--gray-dark));
-		line-height: 1.6;
-		margin-bottom: 2rem;
-	}
-	.hero-actions {
-		display: flex;
-		gap: 1rem;
-		justify-content: center;
-		flex-wrap: wrap;
-	}
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    background: var(--navy);
+    display: flex; align-items: center;
+    padding: 8rem 3rem 5rem;
+    position: relative; overflow: hidden;
+  }
+  .hero-bg { position: absolute; inset: 0; pointer-events: none; }
+  .hero-orb { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.35; }
+  .orb-1 { width: 500px; height: 500px; background: #2040C0; top: -100px; left: -100px; }
+  .orb-2 { width: 400px; height: 400px; background: #4B6EF5; bottom: -80px; right: 10%; opacity: 0.2; }
+  .orb-3 { width: 200px; height: 200px; background: #7B9EFF; top: 40%; right: 30%; opacity: 0.15; }
 
-	/* Buttons */
-	.btn {
-		display: inline-block;
-		padding: 0.75rem 1.75rem;
-		border-radius: 6px;
-		font-weight: 600;
-		text-decoration: none;
-		transition: opacity 0.15s;
-	}
-	.btn:hover {
-		opacity: 0.85;
-	}
-	.btn-primary {
-		background: var(--accent);
-		color: white;
-	}
-	.btn-secondary {
-		border: 2px solid var(--accent);
-		color: var(--accent);
-		background: transparent;
-	}
+  .hero-grid {
+    max-width: 1200px; margin: 0 auto; width: 100%;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 4rem; align-items: center;
+    position: relative; z-index: 1;
+  }
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: rgba(75,110,245,0.15); border: 1px solid rgba(75,110,245,0.3);
+    border-radius: var(--radius-pill); padding: 0.375rem 1rem;
+    font-size: 0.8rem; font-weight: 500; color: #A0B4FF; margin-bottom: 1.75rem;
+    width: fit-content;
+  }
+  .hero-tag-dot { width: 6px; height: 6px; background: var(--accent-glow); border-radius: 50%; animation: pulse 2s infinite; }
+  .hero h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(2.75rem, 5vw, 4.25rem);
+    font-weight: 700; line-height: 1.05; letter-spacing: -0.04em;
+    color: var(--white); margin-bottom: 1.5rem;
+  }
+  .hero h1 em { font-style: normal; color: var(--accent-glow); }
+  .hero-sub { font-size: 1.125rem; font-weight: 300; color: rgba(255,255,255,0.6); line-height: 1.7; margin-bottom: 2.5rem; max-width: 440px; }
+  .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .hero-social-proof { margin-top: 3rem; display: flex; align-items: center; gap: 1rem; }
+  .avatars { display: flex; }
+  .avatar-fallback {
+    width: 34px; height: 34px; border-radius: 50%; border: 2px solid var(--navy);
+    margin-left: -8px; background: linear-gradient(135deg, #4B6EF5, #7B9EFF);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.65rem; font-weight: 600; color: white; flex-shrink: 0;
+  }
+  .avatar-fallback:first-child { margin-left: 0; }
+  .proof-text { font-size: 0.85rem; color: rgba(255,255,255,0.5); margin: 0; }
+  .proof-text strong { color: rgba(255,255,255,0.85); font-weight: 500; }
 
-	/* Services */
-	.services {
-		padding: 4rem 1.5rem;
-		max-width: 960px;
-		margin: 0 auto;
-		text-align: center;
-	}
-	.services h2 {
-		margin-bottom: 2.5rem;
-	}
-	.services-grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-		gap: 1.5rem;
-		text-align: left;
-	}
-	.service-card {
-		padding: 1.5rem;
-		border: 1px solid rgba(var(--gray-light), 1);
-		border-radius: 8px;
-		background: white;
-	}
-	.service-card h3 {
-		margin-top: 0;
-		margin-bottom: 0.5rem;
-		font-size: 1rem;
-		color: rgb(var(--black));
-	}
-	.service-card p {
-		margin: 0;
-		font-size: 0.95rem;
-		color: rgb(var(--gray-dark));
-		line-height: 1.6;
-	}
-	.link-more {
-		display: inline-block;
-		margin-top: 2rem;
-		color: var(--accent);
-		text-decoration: none;
-		font-weight: 600;
-	}
-	.link-more:hover {
-		text-decoration: underline;
-	}
+  /* ── BUTTONS ── */
+  .btn {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-family: 'Inter', sans-serif; font-size: 1rem; font-weight: 500;
+    padding: 0.875rem 2.25rem; border-radius: var(--radius-pill);
+    border: none; cursor: pointer; text-decoration: none; transition: all 0.2s;
+  }
+  .btn-accent { background: var(--accent); color: var(--white); }
+  .btn-accent:hover { background: #3857E0; transform: translateY(-2px); box-shadow: 0 12px 32px rgba(75,110,245,0.3); }
+  .btn-ghost {
+    background: transparent; color: rgba(255,255,255,0.7);
+    border: 1.5px solid rgba(255,255,255,0.2);
+  }
+  .btn-ghost:hover { border-color: var(--accent); color: var(--white); transform: translateY(-1px); }
+  .btn-ghost-dark {
+    display: inline-flex; align-items: center;
+    font-family: 'Inter', sans-serif; font-size: 0.875rem; font-weight: 500;
+    padding: 0.625rem 1.5rem; border-radius: var(--radius-pill);
+    background: transparent; color: var(--navy);
+    border: 1.5px solid var(--border); cursor: pointer; text-decoration: none; transition: all 0.2s;
+  }
+  .btn-ghost-dark:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
 
-	/* About teaser */
-	.about-teaser {
-		background: rgba(var(--gray-light), 0.3);
-		padding: 4rem 1.5rem;
-		border-top: 1px solid rgba(var(--gray-light), 1);
-		border-bottom: 1px solid rgba(var(--gray-light), 1);
-	}
-	.about-content {
-		max-width: 640px;
-		margin: 0 auto;
-	}
-	.about-content h2 {
-		margin-top: 0;
-	}
-	.about-content p {
-		color: rgb(var(--gray-dark));
-		line-height: 1.7;
-	}
+  /* ── PHONE MOCKUP ── */
+  .hero-device { display: flex; justify-content: center; align-items: center; animation: float 5s ease-in-out infinite; }
+  .phone-frame {
+    width: 280px; height: 580px; background: #12203F;
+    border-radius: 44px; border: 2px solid rgba(255,255,255,0.15); padding: 14px;
+    box-shadow: 0 40px 100px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.05), inset 0 1px 0 rgba(255,255,255,0.1);
+    position: relative;
+  }
+  .phone-notch {
+    position: absolute; top: 14px; left: 50%; transform: translateX(-50%);
+    width: 100px; height: 28px; background: #07102A;
+    border-radius: 0 0 16px 16px; z-index: 2;
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+  }
+  .notch-dot { width: 8px; height: 8px; background: #1A2F60; border-radius: 50%; }
+  .notch-cam { width: 12px; height: 12px; background: #1A2F60; border-radius: 50%; }
+  .phone-screen { background: var(--navy); border-radius: 34px; height: 100%; overflow: hidden; position: relative; }
+  .screen-content { padding: 50px 18px 20px; height: 100%; display: flex; flex-direction: column; }
+  .screen-time { font-size: 11px; color: rgba(255,255,255,0.5); text-align: center; margin-bottom: 4px; font-weight: 500; }
+  .screen-logo { font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 700; color: white; margin-bottom: 16px; letter-spacing: -0.03em; }
+  .screen-search { background: rgba(255,255,255,0.07); border-radius: 10px; padding: 8px 12px; font-size: 11px; color: rgba(255,255,255,0.35); margin-bottom: 14px; }
+  .screen-label { font-size: 10px; font-weight: 600; color: rgba(255,255,255,0.5); margin-bottom: 8px; letter-spacing: 0.06em; text-transform: uppercase; }
+  .note-card { background: rgba(255,255,255,0.06); border-radius: 12px; padding: 10px 12px; margin-bottom: 8px; border: 1px solid rgba(255,255,255,0.07); }
+  .note-title { font-size: 10px; font-weight: 600; color: rgba(255,255,255,0.9); margin-bottom: 2px; line-height: 1.3; }
+  .note-meta { font-size: 9px; color: rgba(255,255,255,0.35); }
+  .note-badge { display: inline-block; font-size: 8px; font-weight: 600; padding: 2px 7px; border-radius: 99px; margin-right: 4px; }
+  .badge-notes { background: rgba(75,110,245,0.2); color: #8AA5FF; }
+  .badge-audio { background: rgba(52,199,89,0.15); color: #4CD964; }
+  .note-preview { font-size: 9px; color: rgba(255,255,255,0.35); margin-top: 4px; line-height: 1.4; }
+  .screen-record-btn { margin-top: auto; text-align: center; padding: 10px 0; }
+  .record-circle {
+    width: 52px; height: 52px; border-radius: 50%; background: var(--accent); margin: 0 auto 8px;
+    display: flex; align-items: center; justify-content: center; position: relative;
+  }
+  .record-circle::after {
+    content: ''; position: absolute; inset: -4px; border-radius: 50%;
+    border: 2px solid rgba(75,110,245,0.3); animation: ripple 2s infinite;
+  }
+  .record-dot { width: 18px; height: 18px; background: white; border-radius: 50%; }
+  .record-label { font-size: 9px; color: rgba(255,255,255,0.4); }
 
-	/* CTA */
-	.cta {
-		padding: 5rem 1.5rem;
-		text-align: center;
-		max-width: 600px;
-		margin: 0 auto;
-	}
-	.cta h2 {
-		margin-bottom: 0.75rem;
-	}
-	.cta p {
-		color: rgb(var(--gray-dark));
-		margin-bottom: 2rem;
-	}
+  /* ── LOGOS STRIP ── */
+  .logos-strip {
+    padding: 2.5rem 3rem; background: var(--surface);
+    border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); overflow: hidden;
+  }
+  .logos-label { text-align: center; font-size: 0.8rem; color: var(--text-light); margin-bottom: 1.5rem; letter-spacing: 0.04em; text-transform: uppercase; font-weight: 500; }
+  .logos-scroll { display: flex; gap: 4rem; align-items: center; animation: scroll-logos 20s linear infinite; width: max-content; }
+  .logo-item { font-family: 'Space Grotesk', sans-serif; font-size: 1rem; font-weight: 600; color: var(--text-light); white-space: nowrap; letter-spacing: -0.02em; }
 
-	@media (max-width: 720px) {
-		.hero h1 {
-			font-size: 2rem;
-		}
-		.tagline {
-			font-size: 1rem;
-		}
-	}
+  /* ── SECTION COMMONS ── */
+  section { padding: 7rem 3rem; }
+  .container { max-width: 1200px; margin: 0 auto; }
+  .section-tag { display: inline-block; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; }
+  .section-title { font-family: 'Space Grotesk', sans-serif; font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 1.25rem; color: var(--navy); }
+  .section-sub { font-size: 1.0625rem; color: var(--text-muted); max-width: 520px; line-height: 1.7; }
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  /* ── FEATURES ── */
+  #features { background: var(--white); }
+  .features-header { text-align: center; margin-bottom: 4rem; }
+  .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .feature-card {
+    background: var(--surface); border-radius: var(--radius); padding: 2rem;
+    border: 1px solid var(--border); transition: all 0.3s; position: relative; overflow: hidden;
+  }
+  .feature-card:hover { transform: translateY(-4px); border-color: var(--accent); box-shadow: 0 20px 50px rgba(75,110,245,0.1); }
+  .feature-card.featured { background: var(--navy); grid-column: span 2; color: white; border-color: transparent; }
+  .feature-card.featured .feature-title { color: white; }
+  .feature-card.featured .feature-desc { color: rgba(255,255,255,0.55); }
+  .feature-icon { width: 44px; height: 44px; border-radius: 12px; background: rgba(75,110,245,0.1); display: flex; align-items: center; justify-content: center; margin-bottom: 1.25rem; font-size: 1.25rem; }
+  .feature-card.featured .feature-icon { background: rgba(255,255,255,0.1); }
+  .feature-title { font-family: 'Space Grotesk', sans-serif; font-size: 1.1875rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 0.625rem; color: var(--navy); }
+  .feature-desc { font-size: 0.9375rem; color: var(--text-muted); line-height: 1.65; margin: 0; }
+  .feature-card.featured .feature-content { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: center; }
+  .feature-waveform { height: 60px; display: flex; align-items: center; justify-content: center; gap: 3px; margin-top: 1.5rem; }
+  .wave-bar { width: 3px; border-radius: 2px; background: var(--accent-glow); animation: wave-anim 1.2s ease-in-out infinite; }
+
+  /* ── HOW IT WORKS ── */
+  .how-section { background: var(--surface); }
+  .how-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+  .steps { display: flex; flex-direction: column; gap: 0; }
+  .step { display: flex; gap: 1.5rem; padding: 1.75rem 0; border-bottom: 1px solid var(--border); cursor: pointer; transition: all 0.3s; position: relative; }
+  .step:last-child { border-bottom: none; }
+  .step-num { width: 38px; height: 38px; border-radius: 50%; border: 2px solid var(--border); display: flex; align-items: center; justify-content: center; font-family: 'Space Grotesk', sans-serif; font-size: 0.875rem; font-weight: 700; color: var(--text-muted); flex-shrink: 0; transition: all 0.3s; }
+  .step.active .step-num { background: var(--accent); border-color: var(--accent); color: white; }
+  .step-title { font-family: 'Space Grotesk', sans-serif; font-size: 1.0625rem; font-weight: 600; margin-bottom: 0.375rem; color: var(--navy); }
+  .step-desc { font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; margin: 0; }
+  .step-bar { position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--accent); border-radius: 2px; opacity: 0; transition: opacity 0.3s; }
+  .step.active .step-bar { opacity: 1; }
+  .how-visual { background: var(--navy); border-radius: 24px; padding: 2.5rem; min-height: 420px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+  .how-screens { position: relative; width: 100%; }
+  .how-screen { display: none; }
+  .how-screen.active { display: block; }
+  .mock-card { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 1.5rem; }
+  .mock-title { font-family: 'Space Grotesk', sans-serif; font-size: 0.9rem; font-weight: 600; color: white; margin-bottom: 0.75rem; }
+  .mock-text { font-size: 0.8rem; color: rgba(255,255,255,0.45); line-height: 1.6; margin: 0; }
+  .mock-rec { display: flex; flex-direction: column; align-items: center; gap: 1rem; padding: 1.5rem 0; }
+  .mock-timer { font-family: 'Space Grotesk', sans-serif; font-size: 2rem; font-weight: 300; color: white; }
+  .mock-wave { display: flex; gap: 3px; align-items: center; height: 40px; }
+  .mock-wave span { width: 4px; border-radius: 2px; background: var(--accent-glow); display: block; }
+  .mock-btn { background: #E53935; border-radius: 50%; width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; }
+  .mock-ai-chip { display: inline-flex; align-items: center; gap: 6px; background: rgba(75,110,245,0.2); border: 1px solid rgba(75,110,245,0.3); border-radius: 99px; padding: 4px 12px; font-size: 0.75rem; color: #A0B4FF; margin-bottom: 1rem; }
+  .ai-dot { width: 6px; height: 6px; background: var(--accent-glow); border-radius: 50%; animation: pulse 1.5s infinite; }
+  .mock-summary-line { height: 10px; border-radius: 5px; background: rgba(255,255,255,0.1); margin-bottom: 8px; }
+  .mock-export-btns { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 1rem; }
+  .mock-export-btn { font-size: 0.75rem; font-weight: 500; padding: 6px 14px; border-radius: 99px; background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.7); }
+
+  /* ── PRICING ── */
+  #pricing { background: var(--white); }
+  .pricing-header { text-align: center; margin-bottom: 1.5rem; }
+  .toggle-wrap { display: flex; align-items: center; justify-content: center; gap: 1rem; margin-bottom: 3.5rem; }
+  .toggle-label { font-size: 0.9rem; color: var(--text-muted); font-weight: 500; }
+  .toggle-label.active { color: var(--navy); }
+  .toggle { width: 52px; height: 28px; border-radius: 14px; background: var(--accent); cursor: pointer; position: relative; transition: background 0.3s; border: none; flex-shrink: 0; }
+  .toggle::after { content: ''; position: absolute; width: 22px; height: 22px; border-radius: 50%; background: white; top: 3px; left: 3px; transition: transform 0.3s; }
+  .toggle.annual::after { transform: translateX(24px); }
+  .save-badge { background: rgba(52,199,89,0.12); color: #22C55E; font-size: 0.75rem; font-weight: 600; padding: 3px 10px; border-radius: 99px; }
+  .pricing-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; max-width: 800px; margin: 0 auto; }
+  .pricing-card { border-radius: var(--radius); padding: 2.5rem 2rem; border: 1.5px solid var(--border); background: var(--white); position: relative; transition: all 0.3s; }
+  .pricing-card:hover { box-shadow: 0 16px 48px rgba(7,16,42,0.08); }
+  .pricing-card.featured { background: var(--navy); border-color: transparent; }
+  .popular-badge { position: absolute; top: -13px; left: 50%; transform: translateX(-50%); background: var(--accent); color: white; font-size: 0.75rem; font-weight: 600; padding: 4px 16px; border-radius: 99px; white-space: nowrap; }
+  .plan-name { font-family: 'Space Grotesk', sans-serif; font-size: 1rem; font-weight: 600; margin-bottom: 0.75rem; color: var(--navy); }
+  .pricing-card.featured .plan-name { color: rgba(255,255,255,0.6); }
+  .plan-price { display: flex; align-items: baseline; gap: 4px; margin-bottom: 0.375rem; }
+  .price-amount { font-family: 'Space Grotesk', sans-serif; font-size: 3rem; font-weight: 700; letter-spacing: -0.04em; color: var(--navy); }
+  .pricing-card.featured .price-amount { color: white; }
+  .price-period { font-size: 0.9rem; color: var(--text-muted); }
+  .pricing-card.featured .price-period { color: rgba(255,255,255,0.45); }
+  .price-note { font-size: 0.8rem; color: var(--text-light); margin-bottom: 2rem; }
+  .pricing-card.featured .price-note { color: rgba(255,255,255,0.35); }
+  .plan-features { list-style: none; display: flex; flex-direction: column; gap: 0.875rem; margin-bottom: 2rem; padding: 0; }
+  .plan-features li { display: flex; gap: 0.75rem; align-items: flex-start; font-size: 0.9rem; color: var(--text-muted); }
+  .pricing-card.featured .plan-features li { color: rgba(255,255,255,0.65); }
+  .check { width: 18px; height: 18px; border-radius: 50%; background: rgba(75,110,245,0.12); display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+  .pricing-card.featured .check { background: rgba(255,255,255,0.12); }
+  .check::after { content: '✓'; font-size: 10px; color: var(--accent); font-weight: 700; }
+  .pricing-card.featured .check::after { color: white; }
+  .plan-cta { width: 100%; padding: 0.875rem; border-radius: var(--radius-pill); font-family: 'Inter', sans-serif; font-size: 0.9375rem; font-weight: 500; cursor: pointer; transition: all 0.2s; border: 1.5px solid var(--border); background: transparent; color: var(--navy); }
+  .plan-cta:hover { background: var(--surface); }
+  .pricing-card.featured .plan-cta { background: var(--accent); color: white; border-color: transparent; }
+  .pricing-card.featured .plan-cta:hover { background: #3857E0; }
+
+  /* ── BLOG ── */
+  .blog-section { background: var(--surface); }
+  .blog-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 3rem; }
+  .blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .blog-card { background: var(--white); border-radius: var(--radius); border: 1px solid var(--border); overflow: hidden; transition: all 0.3s; text-decoration: none; color: inherit; display: block; }
+  .blog-card:hover { transform: translateY(-4px); box-shadow: 0 20px 50px rgba(7,16,42,0.1); }
+  .blog-card.featured { grid-column: span 2; }
+  .blog-img { height: 200px; overflow: hidden; position: relative; background: var(--navy-mid); }
+  .blog-card.featured .blog-img { height: 280px; }
+  .blog-img-overlay { position: absolute; inset: 0; display: flex; align-items: flex-end; padding: 1.5rem; }
+  .blog-category { background: rgba(75,110,245,0.85); backdrop-filter: blur(8px); font-size: 0.75rem; font-weight: 600; padding: 4px 12px; border-radius: 99px; color: white; }
+  .blog-illustration { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+  .blog-body { padding: 1.5rem; }
+  .blog-title { font-family: 'Space Grotesk', sans-serif; font-size: 1.0625rem; font-weight: 600; margin-bottom: 0.5rem; line-height: 1.3; letter-spacing: -0.02em; color: var(--navy); }
+  .blog-card.featured .blog-title { font-size: 1.3125rem; }
+  .blog-excerpt { font-size: 0.875rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 1.25rem; }
+  .blog-meta { display: flex; align-items: center; gap: 0.75rem; font-size: 0.8rem; color: var(--text-light); }
+
+  /* ── CTA BAND ── */
+  .cta-band { background: var(--navy); padding: 6rem 3rem; text-align: center; position: relative; overflow: hidden; }
+  .cta-band h2 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(2rem, 4vw, 3.25rem); font-weight: 700; letter-spacing: -0.04em; color: white; margin-bottom: 1rem; position: relative; z-index: 1; }
+  .cta-band p { font-size: 1.0625rem; color: rgba(255,255,255,0.5); margin-bottom: 2.5rem; position: relative; z-index: 1; }
+  .cta-band-btns { display: flex; justify-content: center; gap: 1rem; position: relative; z-index: 1; }
+
+  /* ── CONTACT ── */
+  #contact { background: var(--white); }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+  .contact-info p { font-size: 1.0625rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 2.5rem; }
+  .contact-links { display: flex; flex-direction: column; gap: 0.875rem; margin-top: 2rem; }
+  .contact-link { display: flex; align-items: center; gap: 0.875rem; padding: 1rem 1.25rem; border-radius: var(--radius-sm); border: 1px solid var(--border); background: var(--surface); text-decoration: none; color: var(--navy); font-size: 0.9rem; font-weight: 500; transition: all 0.2s; }
+  .contact-link:hover { border-color: var(--accent); color: var(--accent); transform: translateX(4px); }
+  .contact-icon { width: 36px; height: 36px; border-radius: 9px; background: rgba(75,110,245,0.1); display: flex; align-items: center; justify-content: center; font-size: 1rem; }
+  .form-group { margin-bottom: 1.25rem; }
+  .form-label { display: block; font-size: 0.85rem; font-weight: 500; color: var(--navy); margin-bottom: 0.5rem; }
+  .form-input, .form-textarea { width: 100%; padding: 0.875rem 1rem; border: 1.5px solid var(--border); border-radius: var(--radius-sm); font-family: 'Inter', sans-serif; font-size: 0.9375rem; color: var(--navy); background: var(--white); transition: border-color 0.2s; resize: vertical; }
+  .form-input:focus, .form-textarea:focus { outline: none; border-color: var(--accent); }
+  .form-input::placeholder, .form-textarea::placeholder { color: var(--text-light); }
+  .form-textarea { min-height: 130px; }
+  .form-submit { width: 100%; padding: 1rem; font-family: 'Inter', sans-serif; font-size: 1rem; font-weight: 500; cursor: pointer; border: none; border-radius: var(--radius-pill); background: var(--navy); color: white; transition: all 0.2s; }
+  .form-submit:hover { background: var(--accent); transform: translateY(-1px); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    section { padding: 5rem 1.5rem; }
+    .hero { padding: 7rem 1.5rem 4rem; }
+    .hero-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .hero-device { order: -1; }
+    .phone-frame { width: 220px; height: 450px; }
+    .features-grid { grid-template-columns: 1fr; }
+    .feature-card.featured { grid-column: span 1; }
+    .feature-card.featured .feature-content { grid-template-columns: 1fr; }
+    .how-grid { grid-template-columns: 1fr; }
+    .pricing-cards { grid-template-columns: 1fr; }
+    .blog-grid { grid-template-columns: 1fr; }
+    .blog-card.featured { grid-column: span 1; }
+    .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .logos-strip { padding: 2rem 1.5rem; }
+    .cta-band { padding: 4rem 1.5rem; }
+  }
 </style>
+
+<script>
+  // Custom cursor
+  const cur = document.getElementById('cursor');
+  const curRing = document.getElementById('cursor-ring');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+  function animCursor() {
+    rx += (mx - rx) * 0.15; ry += (my - ry) * 0.15;
+    if (cur) { cur.style.left = mx + 'px'; cur.style.top = my + 'px'; }
+    if (curRing) { curRing.style.left = rx + 'px'; curRing.style.top = ry + 'px'; }
+    requestAnimationFrame(animCursor);
+  }
+  animCursor();
+  document.querySelectorAll('a,button,.step,.blog-card,.pricing-card').forEach(el => {
+    el.addEventListener('mouseenter', () => { if (cur) { cur.style.transform = 'translate(-50%,-50%) scale(2.5)'; cur.style.opacity = '0.4'; } });
+    el.addEventListener('mouseleave', () => { if (cur) { cur.style.transform = 'translate(-50%,-50%) scale(1)'; cur.style.opacity = '1'; } });
+  });
+
+  // Reveal on scroll
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => { if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), i * 80); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(r => obs.observe(r));
+
+  // Waveform bars
+  const wf = document.getElementById('waveform');
+  if (wf) {
+    [20,35,55,40,70,50,30,65,45,55,35,60,25,45,50,40,30,55,38,48].forEach((h, i) => {
+      const bar = document.createElement('div');
+      bar.className = 'wave-bar';
+      bar.style.cssText = `height:${h}px;animation-delay:${(i * 0.07).toFixed(2)}s`;
+      wf.appendChild(bar);
+    });
+  }
+
+  // How it works wave bars
+  const hw = document.getElementById('how-wave');
+  if (hw) {
+    [20,35,55,40,70,50,30,65,45,55].forEach((h, i) => {
+      const bar = document.createElement('span');
+      bar.style.cssText = `height:${h}px;animation:wave-anim 1.2s ease-in-out infinite;animation-delay:${(i*0.1).toFixed(1)}s`;
+      hw.appendChild(bar);
+    });
+  }
+
+  // How it works step switcher
+  let currentStep = 0;
+  const steps = document.querySelectorAll('.step');
+  const screens = document.querySelectorAll('.how-screen');
+  function activateStep(n) {
+    steps.forEach((s, i) => s.classList.toggle('active', i === n));
+    screens.forEach((s, i) => s.classList.toggle('active', i === n));
+    currentStep = n;
+  }
+  steps.forEach(s => s.addEventListener('click', () => activateStep(+(s as HTMLElement).dataset.step!)));
+  setInterval(() => activateStep((currentStep + 1) % 3), 3500);
+
+  // Billing toggle
+  const toggle = document.getElementById('billing-toggle');
+  const priceDisplay = document.getElementById('price-display');
+  const priceSub = document.getElementById('price-sub');
+  const tMonthly = document.getElementById('toggle-monthly');
+  const tAnnual = document.getElementById('toggle-annual');
+  let annual = false;
+  toggle?.addEventListener('click', () => {
+    annual = !annual;
+    toggle.classList.toggle('annual', annual);
+    if (priceDisplay) priceDisplay.textContent = annual ? '$7.99' : '$9.99';
+    if (priceSub) priceSub.textContent = annual ? 'billed once a year ($95.88/yr)' : 'billed every month';
+    tMonthly?.classList.toggle('active', !annual);
+    tAnnual?.classList.toggle('active', annual);
+  });
+
+  // Contact form
+  document.getElementById('contact-submit')?.addEventListener('click', () => {
+    const btn = document.getElementById('contact-submit') as HTMLButtonElement;
+    btn.textContent = 'message sent! ✓';
+    btn.style.background = '#22C55E';
+    setTimeout(() => { btn.textContent = 'send message →'; btn.style.background = ''; }, 3000);
+  });
+</script>

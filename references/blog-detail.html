@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Why your brain can't take notes and listen — focused. blog</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #07102A;
+    --navy-mid: #0E1D45;
+    --accent: #4B6EF5;
+    --accent-glow: #6B8EFF;
+    --surface: #F4F5FF;
+    --surface-2: #ECEEFF;
+    --text-primary: #07102A;
+    --text-muted: #6B7280;
+    --text-light: #9CA3AF;
+    --white: #FFFFFF;
+    --border: rgba(7,16,42,0.08);
+    --border-dark: rgba(255,255,255,0.12);
+    --radius: 16px;
+    --radius-sm: 10px;
+    --radius-pill: 999px;
+  }
+
+  html { scroll-behavior: smooth; font-size: 16px; }
+  body { font-family: 'Inter', sans-serif; background: var(--white); color: var(--text-primary); line-height: 1.6; overflow-x: hidden; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.25rem 3rem;
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+  .logo { font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 700; color: var(--navy); text-decoration: none; letter-spacing: -0.04em; }
+  .logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; align-items: center; }
+  .nav-links a { font-size: 0.875rem; font-weight: 500; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover, .nav-links a.active { color: var(--navy); }
+  .btn { display: inline-flex; align-items: center; gap: 0.5rem; font-family: 'Inter', sans-serif; font-size: 0.875rem; font-weight: 500; padding: 0.625rem 1.5rem; border-radius: var(--radius-pill); border: none; cursor: pointer; text-decoration: none; transition: all 0.2s; }
+  .btn-primary { background: var(--navy); color: var(--white); }
+  .btn-primary:hover { background: var(--accent); transform: translateY(-1px); }
+
+  /* PROGRESS BAR */
+  #progress-bar {
+    position: fixed; top: 0; left: 0; height: 3px;
+    background: var(--accent); z-index: 200;
+    width: 0%; transition: width 0.1s linear;
+    border-radius: 0 2px 2px 0;
+  }
+
+  /* ARTICLE HEADER */
+  .article-header {
+    padding: 9rem 3rem 4rem;
+    max-width: 780px; margin: 0 auto;
+  }
+  .breadcrumb {
+    display: flex; align-items: center; gap: 0.5rem;
+    font-size: 0.8rem; color: var(--text-light);
+    margin-bottom: 2rem;
+  }
+  .breadcrumb a { color: var(--text-light); text-decoration: none; transition: color 0.2s; }
+  .breadcrumb a:hover { color: var(--accent); }
+  .breadcrumb-sep { color: var(--text-light); }
+  .article-cat { display: inline-block; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.25rem; }
+  .article-header h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700; letter-spacing: -0.04em; line-height: 1.1;
+    color: var(--navy); margin-bottom: 1.25rem;
+  }
+  .article-sub {
+    font-size: 1.1875rem; color: var(--text-muted); line-height: 1.7;
+    margin-bottom: 2.5rem;
+    font-family: 'Lora', Georgia, serif; font-weight: 400; font-style: italic;
+  }
+  .article-meta {
+    display: flex; align-items: center; gap: 1rem;
+    padding-bottom: 2rem; border-bottom: 1px solid var(--border);
+  }
+  .author-avatar-lg {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), var(--accent-glow));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.8rem; font-weight: 700; color: white; flex-shrink: 0;
+  }
+  .meta-info {}
+  .meta-author { font-size: 0.9rem; font-weight: 600; color: var(--navy); }
+  .meta-details { font-size: 0.8rem; color: var(--text-light); display: flex; gap: 0.5rem; align-items: center; }
+  .meta-dot { width: 3px; height: 3px; background: var(--text-light); border-radius: 50%; }
+  .share-actions { margin-left: auto; display: flex; gap: 0.5rem; }
+  .share-btn {
+    width: 36px; height: 36px; border-radius: 50%;
+    border: 1px solid var(--border); background: transparent;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; font-size: 0.875rem;
+    transition: all 0.2s; color: var(--text-muted); text-decoration: none;
+  }
+  .share-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--surface); }
+
+  /* COVER IMAGE */
+  .article-cover {
+    max-width: 960px; margin: 0 auto 0;
+    padding: 0 3rem;
+  }
+  .cover-img {
+    width: 100%; height: 420px;
+    background: var(--navy-mid);
+    border-radius: var(--radius);
+    overflow: hidden; position: relative;
+  }
+  .cover-img svg { width: 100%; height: 100%; }
+
+  /* LAYOUT: article + sidebar */
+  .article-layout {
+    max-width: 1200px; margin: 0 auto;
+    padding: 4rem 3rem 7rem;
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  /* ARTICLE BODY */
+  .article-body { min-width: 0; }
+  .article-body p {
+    font-size: 1.0625rem; line-height: 1.85;
+    color: var(--text-primary); margin-bottom: 1.75rem;
+  }
+  .article-body h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.625rem; font-weight: 700; letter-spacing: -0.03em;
+    color: var(--navy); margin: 3rem 0 1.25rem;
+    line-height: 1.2;
+  }
+  .article-body h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.1875rem; font-weight: 600; letter-spacing: -0.02em;
+    color: var(--navy); margin: 2rem 0 0.875rem;
+  }
+  .article-body ul, .article-body ol {
+    margin: 0 0 1.75rem 1.5rem; display: flex; flex-direction: column; gap: 0.625rem;
+  }
+  .article-body li { font-size: 1.0625rem; line-height: 1.75; color: var(--text-primary); }
+  .article-body strong { font-weight: 600; color: var(--navy); }
+  .article-body em { font-style: italic; color: var(--text-muted); }
+
+  /* CALLOUT */
+  .callout {
+    background: var(--surface);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: 1.5rem 1.75rem;
+    margin: 2.5rem 0;
+  }
+  .callout-label { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; }
+  .callout p { font-size: 1rem; color: var(--navy); line-height: 1.7; margin-bottom: 0; font-weight: 500; }
+
+  /* PULL QUOTE */
+  .pull-quote {
+    margin: 3rem 0; padding: 2rem 2.5rem;
+    border-radius: var(--radius);
+    background: var(--navy);
+    position: relative; overflow: hidden;
+  }
+  .pull-quote::before { content: '"'; position: absolute; top: -20px; left: 20px; font-size: 8rem; color: rgba(75,110,245,0.2); font-family: 'Lora', Georgia, serif; line-height: 1; pointer-events: none; }
+  .pull-quote p { font-family: 'Lora', Georgia, serif; font-size: 1.3125rem; font-weight: 400; font-style: italic; color: white; line-height: 1.6; position: relative; z-index: 1; margin-bottom: 0; }
+  .pull-quote cite { display: block; margin-top: 1rem; font-style: normal; font-size: 0.85rem; color: rgba(255,255,255,0.45); position: relative; z-index: 1; }
+
+  /* INLINE IMAGE */
+  .article-img {
+    width: 100%; border-radius: var(--radius);
+    background: var(--navy-mid); overflow: hidden;
+    margin: 2.5rem 0;
+  }
+  .article-img svg { width: 100%; display: block; }
+  .article-img figcaption { padding: 0.875rem 1.25rem; font-size: 0.8rem; color: var(--text-light); text-align: center; border-top: 1px solid var(--border); }
+
+  /* TAGS */
+  .article-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; margin: 3rem 0 0; padding-top: 2rem; border-top: 1px solid var(--border); }
+  .tag { font-size: 0.8rem; font-weight: 500; padding: 5px 12px; border-radius: var(--radius-pill); background: var(--surface); color: var(--text-muted); border: 1px solid var(--border); }
+
+  /* AUTHOR BIO */
+  .author-bio {
+    display: flex; gap: 1.25rem; padding: 2rem;
+    border-radius: var(--radius); border: 1px solid var(--border);
+    background: var(--surface); margin-top: 3rem;
+  }
+  .bio-avatar { width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), var(--accent-glow)); display: flex; align-items: center; justify-content: center; font-size: 1rem; font-weight: 700; color: white; flex-shrink: 0; }
+  .bio-name { font-family: 'Space Grotesk', sans-serif; font-size: 1rem; font-weight: 600; color: var(--navy); margin-bottom: 0.25rem; }
+  .bio-text { font-size: 0.875rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 0; }
+
+  /* SIDEBAR */
+  .article-sidebar { position: sticky; top: 100px; }
+  .sidebar-toc { margin-bottom: 2.5rem; }
+  .toc-label { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-light); margin-bottom: 1rem; }
+  .toc-list { list-style: none; display: flex; flex-direction: column; gap: 0.25rem; }
+  .toc-list a { font-size: 0.875rem; color: var(--text-muted); text-decoration: none; padding: 0.375rem 0.75rem; border-radius: var(--radius-sm); border-left: 2px solid transparent; display: block; transition: all 0.2s; line-height: 1.4; }
+  .toc-list a:hover, .toc-list a.active { color: var(--accent); border-left-color: var(--accent); background: var(--surface); }
+
+  .sidebar-cta {
+    background: var(--navy); border-radius: var(--radius);
+    padding: 1.75rem; text-align: center;
+  }
+  .sidebar-cta h4 { font-family: 'Space Grotesk', sans-serif; font-size: 1rem; font-weight: 700; color: white; margin-bottom: 0.625rem; letter-spacing: -0.02em; }
+  .sidebar-cta p { font-size: 0.85rem; color: rgba(255,255,255,0.5); margin-bottom: 1.25rem; line-height: 1.6; }
+  .sidebar-btn { display: block; width: 100%; padding: 0.75rem; background: var(--accent); color: white; border: none; border-radius: var(--radius-pill); font-family: 'Inter', sans-serif; font-size: 0.875rem; font-weight: 500; cursor: pointer; text-decoration: none; text-align: center; transition: all 0.2s; }
+  .sidebar-btn:hover { background: #3857E0; transform: translateY(-1px); }
+
+  /* RELATED */
+  .related-section { max-width: 960px; margin: 0 auto; padding: 0 3rem 7rem; }
+  .related-title { font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 700; letter-spacing: -0.03em; color: var(--navy); margin-bottom: 2rem; }
+  .related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+  .related-card { border-radius: var(--radius-sm); overflow: hidden; border: 1px solid var(--border); text-decoration: none; color: inherit; display: flex; flex-direction: column; transition: all 0.3s; }
+  .related-card:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(7,16,42,0.08); }
+  .related-img { height: 140px; background: var(--navy-mid); position: relative; }
+  .related-img svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .related-body { padding: 1.125rem; }
+  .related-cat { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; }
+  .related-body h4 { font-family: 'Space Grotesk', sans-serif; font-size: 0.9375rem; font-weight: 600; letter-spacing: -0.02em; line-height: 1.3; color: var(--navy); margin-bottom: 0.375rem; }
+  .related-body span { font-size: 0.8rem; color: var(--text-light); }
+
+  /* DIVIDER */
+  hr { border: none; border-top: 1px solid var(--border); margin: 2.5rem 0; }
+
+  /* CURSOR */
+  #cursor { position: fixed; width: 20px; height: 20px; border-radius: 50%; background: var(--accent); pointer-events: none; z-index: 9999; mix-blend-mode: multiply; transition: transform 0.15s, opacity 0.3s; transform: translate(-50%, -50%); }
+  #cursor-ring { position: fixed; width: 40px; height: 40px; border-radius: 50%; border: 1.5px solid var(--accent); pointer-events: none; z-index: 9998; transform: translate(-50%, -50%); transition: all 0.1s; opacity: 0.5; }
+
+  /* FOOTER */
+  footer { background: var(--navy); padding: 4rem 3rem 2.5rem; }
+  .footer-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; padding-bottom: 3rem; border-bottom: 1px solid var(--border-dark); margin-bottom: 2rem; }
+  .footer-logo { font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 700; color: white; letter-spacing: -0.04em; margin-bottom: 0.875rem; }
+  .footer-logo span { color: var(--accent-glow); }
+  .footer-desc { font-size: 0.9rem; color: rgba(255,255,255,0.4); line-height: 1.6; max-width: 260px; }
+  .footer-col-title { font-size: 0.8rem; font-weight: 600; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 1rem; }
+  .footer-links { display: flex; flex-direction: column; gap: 0.6rem; }
+  .footer-links a { font-size: 0.9rem; color: rgba(255,255,255,0.45); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: white; }
+  .footer-bottom { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: rgba(255,255,255,0.3); }
+
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .article-header, .article-cover, .related-section { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .article-layout { grid-template-columns: 1fr; padding: 2.5rem 1.5rem 5rem; gap: 3rem; }
+    .article-sidebar { position: static; }
+    .related-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .cover-img { height: 260px; }
+  }
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<nav>
+  <a href="index.html" class="logo">focused<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html#features">features</a></li>
+    <li><a href="index.html#how">how it works</a></li>
+    <li><a href="index.html#pricing">pricing</a></li>
+    <li><a href="blog.html" class="active">blog</a></li>
+    <li><a href="index.html#contact">contact</a></li>
+  </ul>
+  <a href="index.html#pricing" class="btn btn-primary">get started</a>
+</nav>
+
+<!-- ARTICLE HEADER -->
+<div class="article-header">
+  <div class="breadcrumb">
+    <a href="index.html">home</a>
+    <span class="breadcrumb-sep">›</span>
+    <a href="blog.html">blog</a>
+    <span class="breadcrumb-sep">›</span>
+    <span>productivity</span>
+  </div>
+  <div class="article-cat">productivity</div>
+  <h1>Why your brain can't take notes and listen at the same time</h1>
+  <p class="article-sub">Cognitive load theory explains why multitasking during lectures destroys retention — and why voice capture is the smarter alternative.</p>
+  <div class="article-meta">
+    <div class="author-avatar-lg">FT</div>
+    <div class="meta-info">
+      <div class="meta-author">focused. team</div>
+      <div class="meta-details">
+        <span>June 18, 2026</span>
+        <div class="meta-dot"></div>
+        <span>5 min read</span>
+        <div class="meta-dot"></div>
+        <span>1,240 reads</span>
+      </div>
+    </div>
+    <div class="share-actions">
+      <a href="#" class="share-btn" title="share on X">𝕏</a>
+      <a href="#" class="share-btn" title="copy link">🔗</a>
+    </div>
+  </div>
+</div>
+
+<!-- COVER -->
+<div class="article-cover">
+  <div class="cover-img">
+    <svg viewBox="0 0 960 420" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice">
+      <rect width="960" height="420" fill="#0E1D45"/>
+      <!-- Left brain half — structured/logical -->
+      <g opacity="0.7">
+        <rect x="80" y="160" width="5" height="100" rx="2" fill="#4B6EF5"/>
+        <rect x="96" y="135" width="5" height="150" rx="2" fill="#6B8EFF"/>
+        <rect x="112" y="150" width="5" height="120" rx="2" fill="#4B6EF5"/>
+        <rect x="128" y="120" width="5" height="180" rx="2" fill="#4B6EF5"/>
+        <rect x="144" y="140" width="5" height="140" rx="2" fill="#6B8EFF"/>
+        <rect x="160" y="165" width="5" height="90" rx="2" fill="#4B6EF5"/>
+        <rect x="176" y="130" width="5" height="160" rx="2" fill="#4B6EF5"/>
+        <rect x="192" y="148" width="5" height="124" rx="2" fill="#6B8EFF"/>
+        <rect x="208" y="158" width="5" height="104" rx="2" fill="#4B6EF5"/>
+        <rect x="224" y="138" width="5" height="144" rx="2" fill="#4B6EF5"/>
+      </g>
+      <!-- Center: cognitive load illustration -->
+      <circle cx="480" cy="210" r="110" fill="rgba(75,110,245,0.08)" stroke="#4B6EF5" stroke-width="0.8" stroke-dasharray="6 6"/>
+      <circle cx="480" cy="210" r="70" fill="rgba(75,110,245,0.12)" stroke="#6B8EFF" stroke-width="0.8"/>
+      <circle cx="480" cy="210" r="35" fill="rgba(75,110,245,0.3)"/>
+      <!-- Two competing circles -->
+      <circle cx="445" cy="195" r="20" fill="rgba(75,110,245,0.6)" stroke="white" stroke-width="0.5"/>
+      <circle cx="515" cy="195" r="20" fill="rgba(107,142,255,0.6)" stroke="white" stroke-width="0.5"/>
+      <text x="445" y="200" text-anchor="middle" fill="white" font-size="11" font-family="Inter,sans-serif">listen</text>
+      <text x="515" y="200" text-anchor="middle" fill="white" font-size="11" font-family="Inter,sans-serif">write</text>
+      <!-- Tension line -->
+      <line x1="465" y1="195" x2="495" y2="195" stroke="white" stroke-width="1" stroke-dasharray="3 3" opacity="0.5"/>
+      <!-- Right side: notes chaos -->
+      <g opacity="0.35">
+        <rect x="680" y="130" width="160" height="12" rx="6" fill="white"/>
+        <rect x="680" y="152" width="120" height="10" rx="5" fill="white"/>
+        <rect x="680" y="172" width="140" height="10" rx="5" fill="white"/>
+        <rect x="680" y="192" width="90" height="10" rx="5" fill="white"/>
+        <rect x="680" y="212" width="150" height="10" rx="5" fill="white"/>
+        <rect x="680" y="232" width="110" height="10" rx="5" fill="white"/>
+        <rect x="680" y="252" width="130" height="10" rx="5" fill="white"/>
+        <rect x="680" y="272" width="80" height="10" rx="5" fill="white"/>
+      </g>
+      <!-- Label -->
+      <text x="480" y="368" text-anchor="middle" fill="rgba(255,255,255,0.2)" font-family="'Inter',sans-serif" font-size="12" letter-spacing="2">cognitive load × dual-task interference</text>
+    </svg>
+  </div>
+</div>
+
+<!-- ARTICLE + SIDEBAR -->
+<div class="article-layout">
+
+  <!-- BODY -->
+  <article class="article-body">
+
+    <p>You're sitting in a lecture hall. The professor is walking through a complex model — something you genuinely need to understand. Your hand is moving across the page, trying to capture every word. Somewhere between writing the last sentence and hearing the next one, you lose the thread. You glance back at your notes. They're complete. But you have no idea what any of it means.</p>
+
+    <p>This is not a failure of effort. It's a failure of architecture — specifically, the architecture of human working memory.</p>
+
+    <h2 id="cognitive-load">What cognitive load theory actually says</h2>
+
+    <p>In 1988, educational psychologist John Sweller introduced cognitive load theory to explain why certain learning environments produce understanding while others produce only the appearance of it. The core idea is simple: working memory — the mental workspace where you process and manipulate new information — has a hard limit.</p>
+
+    <p>Sweller identified three types of cognitive load:</p>
+
+    <ul>
+      <li><strong>Intrinsic load</strong> — the inherent complexity of the material itself</li>
+      <li><strong>Extraneous load</strong> — mental effort caused by how information is presented (poor design, noise, distractions)</li>
+      <li><strong>Germane load</strong> — the productive effort of building mental schemas and understanding</li>
+    </ul>
+
+    <p>The problem with note-taking during a live lecture is that it dramatically increases extraneous load. You're not just processing what's being said — you're simultaneously encoding it into written language, managing your handwriting or typing speed, deciding what's important, and tracking where you are in the physical act of writing.</p>
+
+    <div class="callout">
+      <div class="callout-label">key finding</div>
+      <p>Studies consistently show that verbatim note-taking correlates with lower conceptual understanding. The act of transcription crowds out the mental space needed for meaning-making.</p>
+    </div>
+
+    <h2 id="dual-task">The dual-task interference problem</h2>
+
+    <p>There's a related phenomenon called dual-task interference. When two tasks compete for the same cognitive resources — specifically, when both require language processing — performance on both degrades sharply. Listening and note-taking are both language tasks. They use the same pipeline.</p>
+
+    <figure class="article-img">
+      <svg viewBox="0 0 680 280" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect width="680" height="280" fill="#F4F5FF"/>
+        <!-- Bars: listening retention -->
+        <text x="130" y="30" text-anchor="middle" fill="#07102A" font-family="'Space Grotesk',sans-serif" font-size="13" font-weight="600">retention rate</text>
+        <!-- Bar 1: listening only -->
+        <rect x="60" y="60" width="60" height="160" rx="6" fill="#4B6EF5" opacity="0.85"/>
+        <text x="90" y="238" text-anchor="middle" fill="#6B7280" font-family="Inter,sans-serif" font-size="11">listen only</text>
+        <text x="90" y="52" text-anchor="middle" fill="#07102A" font-family="'Space Grotesk',sans-serif" font-size="13" font-weight="600">78%</text>
+        <!-- Bar 2: note-taking -->
+        <rect x="160" y="110" width="60" height="110" rx="6" fill="#4B6EF5" opacity="0.5"/>
+        <text x="190" y="238" text-anchor="middle" fill="#6B7280" font-family="Inter,sans-serif" font-size="11">note-taking</text>
+        <text x="190" y="102" text-anchor="middle" fill="#07102A" font-family="'Space Grotesk',sans-serif" font-size="13" font-weight="600">54%</text>
+        <!-- Bar 3: voice capture -->
+        <rect x="260" y="45" width="60" height="175" rx="6" fill="#4B6EF5"/>
+        <text x="290" y="238" text-anchor="middle" fill="#6B7280" font-family="Inter,sans-serif" font-size="11">voice capture</text>
+        <text x="290" y="37" text-anchor="middle" fill="#07102A" font-family="'Space Grotesk',sans-serif" font-size="13" font-weight="600">91%</text>
+
+        <!-- Divider -->
+        <line x1="380" y1="30" x2="380" y2="230" stroke="#E5E7EB" stroke-width="1" stroke-dasharray="4 4"/>
+
+        <!-- Right side: dual task diagram -->
+        <text x="530" y="30" text-anchor="middle" fill="#07102A" font-family="'Space Grotesk',sans-serif" font-size="13" font-weight="600">working memory</text>
+        <circle cx="530" cy="130" r="75" fill="none" stroke="#4B6EF5" stroke-width="1" stroke-dasharray="5 5" opacity="0.4"/>
+        <circle cx="504" cy="118" r="30" fill="rgba(75,110,245,0.15)" stroke="#4B6EF5" stroke-width="0.8"/>
+        <circle cx="556" cy="118" r="30" fill="rgba(75,110,245,0.15)" stroke="#6B8EFF" stroke-width="0.8"/>
+        <text x="504" y="122" text-anchor="middle" fill="#07102A" font-family="Inter,sans-serif" font-size="10">listen</text>
+        <text x="556" y="122" text-anchor="middle" fill="#07102A" font-family="Inter,sans-serif" font-size="10">write</text>
+        <text x="530" y="185" text-anchor="middle" fill="#9CA3AF" font-family="Inter,sans-serif" font-size="10">capacity exceeded</text>
+      </svg>
+      <figcaption>Simulated retention data illustrating dual-task interference on working memory capacity</figcaption>
+    </figure>
+
+    <p>The numbers above are illustrative, but they reflect a consistent pattern in the literature. When you free your attention from the act of writing, you retain significantly more of what you hear — because your working memory can actually do what it's designed to do: build meaning.</p>
+
+    <div class="pull-quote">
+      <p>The goal of a lecture isn't to produce a transcript. It's to produce understanding. Those require completely different mental postures.</p>
+      <cite>— focused. research team</cite>
+    </div>
+
+    <h2 id="voice-capture">Where voice capture changes the equation</h2>
+
+    <p>Voice capture doesn't eliminate cognitive load — nothing does. But it shifts the load to a much better time: after the event, when you're not also trying to understand something in real time.</p>
+
+    <p>Here's what changes when you record instead of write:</p>
+
+    <ul>
+      <li>During the lecture, 100% of your working memory goes to comprehension</li>
+      <li>The audio file captures everything — including tone, emphasis, and context that notes often miss</li>
+      <li>Reviewing an AI-generated summary uses recognition memory, which is far more efficient than recall-from-scratch</li>
+      <li>You can re-listen to the exact moment something confused you, in context</li>
+    </ul>
+
+    <h2 id="practical">What this means in practice</h2>
+
+    <p>You don't need to stop taking notes entirely. There's good evidence that brief, selective notes — keywords, diagrams, questions — can enhance encoding without exceeding cognitive capacity. The problem is verbatim transcription: trying to write everything you hear.</p>
+
+    <p>The practical approach that works for most people:</p>
+
+    <ol>
+      <li><strong>Record the full session</strong> — so nothing is lost</li>
+      <li><strong>Take minimal notes</strong> — only what you need to orient yourself later: key terms, page references, your own questions</li>
+      <li><strong>Review the AI summary</strong> within a few hours while the lecture is still fresh enough to contextualise the gaps</li>
+      <li><strong>Use spaced repetition</strong> on the summary, not the full transcript</li>
+    </ol>
+
+    <div class="callout">
+      <div class="callout-label">try it in focused.</div>
+      <p>Open the app, hit record, and put your phone on the desk. Come back after the lecture and tap "generate summary." Your personalised AI will produce a structured note based on your role and goals — without you having written a single word during the session.</p>
+    </div>
+
+    <p>The research is clear, and the intuition matches: the best note you can take during a lecture is no note at all. Let the audio do the capturing. Let your brain do the thinking.</p>
+
+    <hr>
+
+    <div class="article-tags">
+      <span class="tag">productivity</span>
+      <span class="tag">cognitive science</span>
+      <span class="tag">voice notes</span>
+      <span class="tag">learning</span>
+      <span class="tag">students</span>
+    </div>
+
+    <div class="author-bio">
+      <div class="bio-avatar">FT</div>
+      <div>
+        <div class="bio-name">focused. team</div>
+        <p class="bio-text">We write about productivity, AI, and the science of capturing ideas — so you can stay in the moment and review when it matters.</p>
+      </div>
+    </div>
+
+  </article>
+
+  <!-- SIDEBAR -->
+  <aside class="article-sidebar">
+    <div class="sidebar-toc">
+      <div class="toc-label">in this article</div>
+      <ul class="toc-list">
+        <li><a href="#cognitive-load" class="toc-link">Cognitive load theory</a></li>
+        <li><a href="#dual-task" class="toc-link">Dual-task interference</a></li>
+        <li><a href="#voice-capture" class="toc-link">Where voice capture helps</a></li>
+        <li><a href="#practical" class="toc-link">What this means in practice</a></li>
+      </ul>
+    </div>
+    <div class="sidebar-cta">
+      <h4>Try focused. free</h4>
+      <p>Record your next lecture. Let AI summarise it. See the difference.</p>
+      <a href="index.html#pricing" class="sidebar-btn">get started →</a>
+    </div>
+  </aside>
+
+</div>
+
+<!-- RELATED -->
+<div class="related-section">
+  <div class="related-title">keep reading</div>
+  <div class="related-grid">
+    <a class="related-card" href="blog-detail.html">
+      <div class="related-img">
+        <svg viewBox="0 0 300 140" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect width="300" height="140" fill="#0E1D45"/>
+          <rect x="30" y="40" width="240" height="8" rx="4" fill="rgba(75,110,245,0.5)"/>
+          <rect x="30" y="56" width="180" height="6" rx="3" fill="rgba(255,255,255,0.1)"/>
+          <rect x="30" y="70" width="200" height="6" rx="3" fill="rgba(255,255,255,0.1)"/>
+          <rect x="30" y="84" width="140" height="6" rx="3" fill="rgba(255,255,255,0.08)"/>
+          <rect x="30" y="98" width="160" height="6" rx="3" fill="rgba(255,255,255,0.08)"/>
+        </svg>
+      </div>
+      <div class="related-body">
+        <div class="related-cat">tips</div>
+        <h4>5 custom instructions that make summaries 10x better</h4>
+        <span>3 min read</span>
+      </div>
+    </a>
+    <a class="related-card" href="blog-detail.html">
+      <div class="related-img">
+        <svg viewBox="0 0 300 140" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect width="300" height="140" fill="#0A1628"/>
+          <circle cx="150" cy="70" r="40" fill="rgba(75,110,245,0.15)" stroke="#4B6EF5" stroke-width="0.8" stroke-dasharray="4 4"/>
+          <circle cx="150" cy="70" r="18" fill="rgba(75,110,245,0.4)"/>
+          <circle cx="150" cy="70" r="7" fill="#6B8EFF"/>
+        </svg>
+      </div>
+      <div class="related-body">
+        <div class="related-cat">productivity</div>
+        <h4>The science of spaced repetition and voice notes</h4>
+        <span>7 min read</span>
+      </div>
+    </a>
+    <a class="related-card" href="blog-detail.html">
+      <div class="related-img">
+        <svg viewBox="0 0 300 140" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect width="300" height="140" fill="#0C1A35"/>
+          <circle cx="150" cy="60" r="28" fill="rgba(75,110,245,0.15)"/>
+          <circle cx="150" cy="54" r="14" fill="rgba(75,110,245,0.25)"/>
+          <rect x="126" y="74" width="48" height="28" rx="8" fill="rgba(75,110,245,0.15)"/>
+          <rect x="60" y="105" width="180" height="6" rx="3" fill="rgba(255,255,255,0.06)"/>
+        </svg>
+      </div>
+      <div class="related-body">
+        <div class="related-cat">user stories</div>
+        <h4>How a med student went from drowning to acing finals</h4>
+        <span>6 min read</span>
+      </div>
+    </a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-logo">focused<span>.</span></div>
+      <p class="footer-desc">A voice note taker that uses AI to summarise your thoughts — so you can stay in the moment.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">product</div>
+      <div class="footer-links">
+        <a href="index.html#features">features</a>
+        <a href="index.html#pricing">pricing</a>
+        <a href="index.html#how">how it works</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">company</div>
+      <div class="footer-links">
+        <a href="#">about</a>
+        <a href="blog.html">blog</a>
+        <a href="index.html#contact">contact</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">legal</div>
+      <div class="footer-links">
+        <a href="#">privacy policy</a>
+        <a href="#">terms of service</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 focused. All rights reserved.</span>
+    <span>available on iOS</span>
+  </div>
+</footer>
+
+<script>
+  // progress bar
+  window.addEventListener('scroll', () => {
+    const scrolled = window.scrollY;
+    const total = document.body.scrollHeight - window.innerHeight;
+    document.getElementById('progress-bar').style.width = (scrolled/total*100) + '%';
+  });
+
+  // cursor
+  const cur = document.getElementById('cursor');
+  const curRing = document.getElementById('cursor-ring');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; });
+  function animCursor() {
+    rx += (mx-rx)*0.15; ry += (my-ry)*0.15;
+    cur.style.left=mx+'px'; cur.style.top=my+'px';
+    curRing.style.left=rx+'px'; curRing.style.top=ry+'px';
+    requestAnimationFrame(animCursor);
+  }
+  animCursor();
+  document.querySelectorAll('a,button').forEach(el => {
+    el.addEventListener('mouseenter', () => { cur.style.transform='translate(-50%,-50%) scale(2.5)'; cur.style.opacity='0.4'; });
+    el.addEventListener('mouseleave', () => { cur.style.transform='translate(-50%,-50%) scale(1)'; cur.style.opacity='1'; });
+  });
+
+  // TOC active state on scroll
+  const headings = document.querySelectorAll('h2[id]');
+  const tocLinks = document.querySelectorAll('.toc-link');
+  const scrollObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if(e.isIntersecting) {
+        tocLinks.forEach(l => l.classList.remove('active'));
+        const active = document.querySelector(`.toc-link[href="#${e.target.id}"]`);
+        if(active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+  headings.forEach(h => scrollObs.observe(h));
+
+  // copy link share button
+  document.querySelectorAll('.share-btn').forEach(btn => {
+    if(btn.title === 'copy link') {
+      btn.addEventListener('click', e => {
+        e.preventDefault();
+        navigator.clipboard.writeText(window.location.href).catch(() => {});
+        btn.textContent = '✓';
+        setTimeout(() => btn.textContent = '🔗', 2000);
+      });
+    }
+  });
+</script>
+</body>
+</html>

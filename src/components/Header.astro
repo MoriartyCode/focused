@@ -1,54 +1,78 @@
 ---
 import { SITE_TITLE } from '../consts';
-import HeaderLink from './HeaderLink.astro';
 ---
 
-<header>
-	<nav>
-		<h2><a href="/">{SITE_TITLE}</a></h2>
-		<div class="internal-links">
-			<HeaderLink href="/">Home</HeaderLink>
-			<HeaderLink href="/services">Services</HeaderLink>
-			<HeaderLink href="/about">About</HeaderLink>
-			<HeaderLink href="/blog">Blog</HeaderLink>
-			<HeaderLink href="/contact">Contact</HeaderLink>
-		</div>
-	</nav>
-</header>
-<style>
-	header {
-		margin: 0;
-		padding: 0 1em;
-		background: white;
-		box-shadow: 0 2px 8px rgba(var(--black), 5%);
-	}
-	h2 {
-		margin: 0;
-		font-size: 1em;
-	}
+<nav id="navbar">
+  <a href="/" class="logo">{SITE_TITLE}<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="/#features">features</a></li>
+    <li><a href="/#how">how it works</a></li>
+    <li><a href="/#pricing">pricing</a></li>
+    <li><a href="/blog">blog</a></li>
+    <li><a href="/#contact">contact</a></li>
+  </ul>
+  <a href="/#pricing" class="btn btn-primary">get started</a>
+</nav>
 
-	h2 a,
-	h2 a.active {
-		text-decoration: none;
-	}
-	nav {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-	}
-	nav a {
-		padding: 1em 0.5em;
-		color: var(--black);
-		border-bottom: 4px solid transparent;
-		text-decoration: none;
-	}
-	nav a.active {
-		text-decoration: none;
-		border-bottom-color: var(--accent);
-	}
-	@media (max-width: 720px) {
-		.internal-links {
-			font-size: 0.85em;
-		}
-	}
+<style>
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.25rem 3rem;
+    transition: background 0.4s, backdrop-filter 0.4s;
+  }
+  nav.scrolled {
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+  .logo {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.5rem; font-weight: 700;
+    color: var(--white); text-decoration: none;
+    letter-spacing: -0.04em;
+    transition: color 0.3s;
+  }
+  nav.scrolled .logo { color: var(--navy); }
+  .logo span { color: var(--accent); }
+  .nav-links {
+    display: flex; gap: 2.5rem; list-style: none;
+    align-items: center;
+  }
+  .nav-links a {
+    font-size: 0.875rem; font-weight: 500;
+    color: rgba(255,255,255,0.7); text-decoration: none;
+    transition: color 0.2s;
+  }
+  nav.scrolled .nav-links a { color: var(--text-muted); }
+  .nav-links a:hover { color: var(--white); }
+  nav.scrolled .nav-links a:hover { color: var(--navy); }
+  .btn {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-family: 'Inter', sans-serif; font-size: 0.875rem; font-weight: 500;
+    padding: 0.625rem 1.5rem;
+    border-radius: var(--radius-pill);
+    border: none; cursor: pointer; text-decoration: none;
+    transition: all 0.2s;
+  }
+  .btn-primary {
+    background: rgba(255,255,255,0.15); color: var(--white);
+    border: 1px solid rgba(255,255,255,0.25);
+    backdrop-filter: blur(8px);
+  }
+  nav.scrolled .btn-primary {
+    background: var(--navy); color: var(--white); border-color: transparent;
+  }
+  .btn-primary:hover { background: var(--accent); border-color: transparent; transform: translateY(-1px); }
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+  }
 </style>
+
+<script>
+  const nav = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    nav?.classList.toggle('scrolled', window.scrollY > 60);
+  });
+</script>

@@ -3,84 +3,241 @@ import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
-import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
 
 type Props = CollectionEntry<'blog'>['data'];
 
 const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+
+const formattedDate = pubDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+const updatedFormatted = updatedDate?.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 ---
 
 <html lang="en">
-	<head>
-		<BaseHead title={title} description={description} />
-		<style>
-			main {
-				width: calc(100% - 2em);
-				max-width: 100%;
-				margin: 0;
-			}
-			.hero-image {
-				width: 100%;
-			}
-			.hero-image img {
-				display: block;
-				margin: 0 auto;
-				border-radius: 12px;
-				box-shadow: var(--box-shadow);
-			}
-			.prose {
-				width: 720px;
-				max-width: calc(100% - 2em);
-				margin: auto;
-				padding: 1em;
-				color: rgb(var(--gray-dark));
-			}
-			.title {
-				margin-bottom: 1em;
-				padding: 1em 0;
-				text-align: center;
-				line-height: 1;
-			}
-			.title h1 {
-				margin: 0 0 0.5em 0;
-			}
-			.date {
-				margin-bottom: 0.5em;
-				color: rgb(var(--gray));
-			}
-			.last-updated-on {
-				font-style: italic;
-			}
-		</style>
-	</head>
+  <head>
+    <BaseHead title={title} description={description} />
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <div id="progress-bar"></div>
+    <div id="cursor"></div>
+    <div id="cursor-ring"></div>
 
-	<body>
-		<Header />
-		<main>
-			<article>
-				<div class="hero-image">
-					{heroImage && <Image width={1020} height={510} src={heroImage} alt="" />}
-				</div>
-				<div class="prose">
-					<div class="title">
-						<div class="date">
-							<FormattedDate date={pubDate} />
-							{
-								updatedDate && (
-									<div class="last-updated-on">
-										Last updated on <FormattedDate date={updatedDate} />
-									</div>
-								)
-							}
-						</div>
-						<h1>{title}</h1>
-						<hr />
-					</div>
-					<slot />
-				</div>
-			</article>
-		</main>
-		<Footer />
-	</body>
+    <Header />
+
+    <!-- ARTICLE HEADER -->
+    <div class="article-header">
+      <div class="breadcrumb">
+        <a href="/">home</a>
+        <span class="breadcrumb-sep">›</span>
+        <a href="/blog">blog</a>
+        <span class="breadcrumb-sep">›</span>
+        <span>article</span>
+      </div>
+      <div class="article-cat">blog</div>
+      <h1>{title}</h1>
+      {description && <p class="article-sub">{description}</p>}
+      <div class="article-meta">
+        <div class="author-avatar-lg">FT</div>
+        <div class="meta-info">
+          <div class="meta-author">focused. team</div>
+          <div class="meta-details">
+            <span>{formattedDate}</span>
+            {updatedDate && (
+              <>
+                <div class="meta-dot"></div>
+                <span>updated {updatedFormatted}</span>
+              </>
+            )}
+          </div>
+        </div>
+        <div class="share-actions">
+          <a href="#" class="share-btn" title="share on X">𝕏</a>
+          <button class="share-btn copy-link-btn" title="copy link">🔗</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- COVER -->
+    <div class="article-cover">
+      <div class="cover-img">
+        {heroImage ? (
+          <Image src={heroImage} alt={title} width={960} height={420} style="width:100%;height:100%;object-fit:cover;border-radius:0;" />
+        ) : (
+          <svg viewBox="0 0 960 420" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice">
+            <rect width="960" height="420" fill="#0E1D45"/>
+            <circle cx="480" cy="210" r="110" fill="rgba(75,110,245,0.08)" stroke="#4B6EF5" stroke-width="0.8" stroke-dasharray="6 6"/>
+            <circle cx="480" cy="210" r="70" fill="rgba(75,110,245,0.12)" stroke="#6B8EFF" stroke-width="0.8"/>
+            <circle cx="480" cy="210" r="35" fill="rgba(75,110,245,0.3)"/>
+            <g opacity="0.7">
+              <rect x="80" y="170" width="5" height="80" rx="2" fill="#4B6EF5"/>
+              <rect x="96" y="150" width="5" height="120" rx="2" fill="#6B8EFF"/>
+              <rect x="112" y="160" width="5" height="100" rx="2" fill="#4B6EF5"/>
+              <rect x="128" y="140" width="5" height="140" rx="2" fill="#4B6EF5"/>
+              <rect x="144" y="155" width="5" height="110" rx="2" fill="#6B8EFF"/>
+              <rect x="160" y="175" width="5" height="70" rx="2" fill="#4B6EF5"/>
+            </g>
+            <g opacity="0.7">
+              <rect x="786" y="168" width="5" height="84" rx="2" fill="#4B6EF5"/>
+              <rect x="802" y="148" width="5" height="124" rx="2" fill="#6B8EFF"/>
+              <rect x="818" y="158" width="5" height="104" rx="2" fill="#4B6EF5"/>
+              <rect x="834" y="138" width="5" height="144" rx="2" fill="#4B6EF5"/>
+              <rect x="850" y="153" width="5" height="114" rx="2" fill="#6B8EFF"/>
+            </g>
+          </svg>
+        )}
+      </div>
+    </div>
+
+    <!-- ARTICLE + SIDEBAR -->
+    <div class="article-layout">
+
+      <article class="article-body prose">
+        <slot />
+
+        <div class="article-tags">
+          <span class="tag">blog</span>
+          <span class="tag">focused.</span>
+          <span class="tag">voice notes</span>
+        </div>
+
+        <div class="author-bio">
+          <div class="bio-avatar">FT</div>
+          <div>
+            <div class="bio-name">focused. team</div>
+            <p class="bio-text">We write about productivity, AI, and the science of capturing ideas — so you can stay in the moment and review when it matters.</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- SIDEBAR -->
+      <aside class="article-sidebar">
+        <div class="sidebar-cta">
+          <h4>Try focused. free</h4>
+          <p>Record your next lecture. Let AI summarise it. See the difference.</p>
+          <a href="/#pricing" class="sidebar-btn">get started →</a>
+        </div>
+        <div class="sidebar-back">
+          <a href="/blog" class="back-link">← all posts</a>
+        </div>
+      </aside>
+
+    </div>
+
+    <Footer />
+  </body>
 </html>
+
+<style>
+  /* PROGRESS BAR */
+  #progress-bar { position: fixed; top: 0; left: 0; height: 3px; background: var(--accent); z-index: 200; width: 0%; transition: width 0.1s linear; border-radius: 0 2px 2px 0; }
+
+  /* CURSOR */
+  #cursor { position: fixed; width: 20px; height: 20px; border-radius: 50%; background: var(--accent); pointer-events: none; z-index: 9999; mix-blend-mode: multiply; transition: transform 0.15s, opacity 0.3s; transform: translate(-50%, -50%); }
+  #cursor-ring { position: fixed; width: 40px; height: 40px; border-radius: 50%; border: 1.5px solid var(--accent); pointer-events: none; z-index: 9998; transform: translate(-50%, -50%); transition: all 0.1s; opacity: 0.5; }
+
+  /* ARTICLE HEADER */
+  .article-header { padding: 9rem 3rem 4rem; max-width: 780px; margin: 0 auto; }
+  .breadcrumb { display: flex; align-items: center; gap: 0.5rem; font-size: 0.8rem; color: var(--text-light); margin-bottom: 2rem; }
+  .breadcrumb a { color: var(--text-light); text-decoration: none; transition: color 0.2s; }
+  .breadcrumb a:hover { color: var(--accent); }
+  .breadcrumb-sep { color: var(--text-light); }
+  .article-cat { display: inline-block; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.25rem; }
+  .article-header h1 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; letter-spacing: -0.04em; line-height: 1.1; color: var(--navy); margin-bottom: 1.25rem; }
+  .article-sub { font-size: 1.1875rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 2.5rem; font-family: 'Lora', Georgia, serif; font-style: italic; }
+  .article-meta { display: flex; align-items: center; gap: 1rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+  .author-avatar-lg { width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), var(--accent-glow)); display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 700; color: white; flex-shrink: 0; }
+  .meta-author { font-size: 0.9rem; font-weight: 600; color: var(--navy); }
+  .meta-details { font-size: 0.8rem; color: var(--text-light); display: flex; gap: 0.5rem; align-items: center; }
+  .meta-dot { width: 3px; height: 3px; background: var(--text-light); border-radius: 50%; }
+  .share-actions { margin-left: auto; display: flex; gap: 0.5rem; }
+  .share-btn { width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--border); background: transparent; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 0.875rem; transition: all 0.2s; color: var(--text-muted); text-decoration: none; }
+  .share-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--surface); }
+
+  /* COVER */
+  .article-cover { max-width: 960px; margin: 0 auto; padding: 0 3rem; }
+  .cover-img { width: 100%; height: 420px; background: var(--navy-mid); border-radius: var(--radius); overflow: hidden; position: relative; }
+  .cover-img svg { width: 100%; height: 100%; }
+
+  /* LAYOUT */
+  .article-layout { max-width: 1200px; margin: 0 auto; padding: 4rem 3rem 7rem; display: grid; grid-template-columns: 1fr 280px; gap: 5rem; align-items: start; }
+
+  /* ARTICLE BODY */
+  .article-body { min-width: 0; }
+  .article-body :global(p) { font-size: 1.0625rem; line-height: 1.85; color: var(--text-primary); margin-bottom: 1.75rem; }
+  .article-body :global(h2) { font-family: 'Space Grotesk', sans-serif; font-size: 1.625rem; font-weight: 700; letter-spacing: -0.03em; color: var(--navy); margin: 3rem 0 1.25rem; line-height: 1.2; }
+  .article-body :global(h3) { font-family: 'Space Grotesk', sans-serif; font-size: 1.1875rem; font-weight: 600; letter-spacing: -0.02em; color: var(--navy); margin: 2rem 0 0.875rem; }
+  .article-body :global(ul), .article-body :global(ol) { margin: 0 0 1.75rem 1.5rem; display: flex; flex-direction: column; gap: 0.625rem; }
+  .article-body :global(li) { font-size: 1.0625rem; line-height: 1.75; color: var(--text-primary); }
+  .article-body :global(strong) { font-weight: 600; color: var(--navy); }
+  .article-body :global(a) { color: var(--accent); text-decoration: underline; }
+  .article-body :global(blockquote) { border-left: 3px solid var(--accent); padding: 1rem 1.5rem; margin: 2rem 0; background: var(--surface); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; font-style: italic; color: var(--navy); }
+  .article-body :global(hr) { border: none; border-top: 1px solid var(--border); margin: 2.5rem 0; }
+  .article-body :global(pre) { border-radius: var(--radius-sm); margin-bottom: 1.75rem; overflow-x: auto; }
+  .article-body :global(img) { border-radius: var(--radius); margin: 1.5rem 0; }
+
+  /* TAGS */
+  .article-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; margin: 3rem 0 0; padding-top: 2rem; border-top: 1px solid var(--border); }
+  .tag { font-size: 0.8rem; font-weight: 500; padding: 5px 12px; border-radius: var(--radius-pill); background: var(--surface); color: var(--text-muted); border: 1px solid var(--border); }
+
+  /* AUTHOR BIO */
+  .author-bio { display: flex; gap: 1.25rem; padding: 2rem; border-radius: var(--radius); border: 1px solid var(--border); background: var(--surface); margin-top: 3rem; }
+  .bio-avatar { width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), var(--accent-glow)); display: flex; align-items: center; justify-content: center; font-size: 1rem; font-weight: 700; color: white; flex-shrink: 0; }
+  .bio-name { font-family: 'Space Grotesk', sans-serif; font-size: 1rem; font-weight: 600; color: var(--navy); margin-bottom: 0.25rem; }
+  .bio-text { font-size: 0.875rem; color: var(--text-muted); line-height: 1.6; margin: 0; }
+
+  /* SIDEBAR */
+  .article-sidebar { position: sticky; top: 100px; }
+  .sidebar-cta { background: var(--navy); border-radius: var(--radius); padding: 1.75rem; text-align: center; }
+  .sidebar-cta h4 { font-family: 'Space Grotesk', sans-serif; font-size: 1rem; font-weight: 700; color: white; margin-bottom: 0.625rem; letter-spacing: -0.02em; }
+  .sidebar-cta p { font-size: 0.85rem; color: rgba(255,255,255,0.5); margin-bottom: 1.25rem; line-height: 1.6; }
+  .sidebar-btn { display: block; width: 100%; padding: 0.75rem; background: var(--accent); color: white; border: none; border-radius: var(--radius-pill); font-family: 'Inter', sans-serif; font-size: 0.875rem; font-weight: 500; cursor: pointer; text-decoration: none; text-align: center; transition: all 0.2s; }
+  .sidebar-btn:hover { background: #3857E0; transform: translateY(-1px); }
+  .sidebar-back { margin-top: 1.5rem; text-align: center; }
+  .back-link { font-size: 0.875rem; color: var(--text-muted); text-decoration: none; font-weight: 500; transition: color 0.2s; }
+  .back-link:hover { color: var(--accent); }
+
+  @media (max-width: 900px) {
+    .article-header, .article-cover { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .article-layout { grid-template-columns: 1fr; padding: 2.5rem 1.5rem 5rem; gap: 3rem; }
+    .article-sidebar { position: static; }
+    .cover-img { height: 260px; }
+    .article-header { padding-top: 7rem; }
+  }
+</style>
+
+<script>
+  // Progress bar
+  window.addEventListener('scroll', () => {
+    const scrolled = window.scrollY;
+    const total = document.body.scrollHeight - window.innerHeight;
+    const bar = document.getElementById('progress-bar');
+    if (bar) bar.style.width = (scrolled / total * 100) + '%';
+  });
+
+  // Cursor
+  const cur = document.getElementById('cursor');
+  const curRing = document.getElementById('cursor-ring');
+  let mx=0, my=0, rx=0, ry=0;
+  document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; });
+  function animCursor() {
+    rx += (mx-rx)*0.15; ry += (my-ry)*0.15;
+    if(cur) { cur.style.left=mx+'px'; cur.style.top=my+'px'; }
+    if(curRing) { curRing.style.left=rx+'px'; curRing.style.top=ry+'px'; }
+    requestAnimationFrame(animCursor);
+  }
+  animCursor();
+  document.querySelectorAll('a,button').forEach(el => {
+    el.addEventListener('mouseenter', () => { if(cur){cur.style.transform='translate(-50%,-50%) scale(2.5)';cur.style.opacity='0.4';} });
+    el.addEventListener('mouseleave', () => { if(cur){cur.style.transform='translate(-50%,-50%) scale(1)';cur.style.opacity='1';} });
+  });
+
+  // Copy link
+  document.querySelector('.copy-link-btn')?.addEventListener('click', (e) => {
+    e.preventDefault();
+    navigator.clipboard.writeText(window.location.href).catch(() => {});
+    const btn = e.currentTarget as HTMLButtonElement;
+    btn.textContent = '✓';
+    setTimeout(() => btn.textContent = '🔗', 2000);
+  });
+</script>
